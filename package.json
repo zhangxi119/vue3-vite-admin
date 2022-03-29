@@ -1,0 +1,28 @@
+{
+  "name": "vuetest2",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "element-plus": "^2.1.4",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "cross-env": "^7.0.3",
+    "mockjs": "^1.1.0",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "unplugin-auto-import": "^0.6.6",
+    "unplugin-element-plus": "^0.3.2",
+    "unplugin-vue-components": "^0.18.4",
+    "vite": "^2.8.0",
+    "vite-plugin-mock": "^2.9.6"
+  }
+}

@@ -1,0 +1,299 @@
+
+.dialog-header {
+  background: #F3F7FF;
+  border: 1px solid #DCDFE6;
+  padding-left: 22px;
+  box-sizing: border-box;
+  line-height: 40px;
+  border-radius: 2px;
+  height: 40px;
+  font-size: 13px;
+}
+.dig-table {
+    .dialog-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      box-sizing: border-box;
+      padding: 0 20px;
+      background: #F3F7FF;
+      border: 1px solid #DCDFE6;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      .item-box{
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        .icon {
+          margin-right: 8px;
+        }
+        .label{
+          font-family: PingFangSC-Regular;
+          font-size: 13px;
+          color: #909399;
+          letter-spacing: 0;
+          line-height: 13px;
+          font-weight: 400;
+        }
+        .value{
+          font-family: PingFangSC-Semibold;
+          font-size: 13px;
+          color: #606266;
+          letter-spacing: 0;
+          line-height: 13px;
+          font-weight: 600;
+          .id-card{
+            font-family: PingFangSC-Regular;
+            font-size: 13px;
+            color: #606266;
+            letter-spacing: 0;
+            line-height: 13px;
+            font-weight: 400;
+          }
+        }
+        &.item1 {
+          width: 35%;
+        }
+        &.item2 {
+          width: 25%;
+          justify-content: center;
+        }
+        &.item3 {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+    }
+    :deep .table-header-main{
+      padding: 0 !important;
+    }
+    :deep .table-header {
+      margin-bottom: 0 !important;
+    }
+    :deep .el-pagination{
+      padding: 2px 50px !important;
+      padding-left: 0px !important;
+    }
+  }
+.drawer{
+  :deep .el-select{
+    width: 100%;
+  }
+  .edit{
+    height: 100%;
+    :deep .el-form-item__label{
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #909399 !important;
+      letter-spacing: 0;
+      text-align: right;
+      font-weight: 400;
+    }
+    :deep .el-input--small .el-input__inner {
+      border: none;
+    }
+    :deep .el-input.is-disabled .el-input__inner {
+      background-color: white;
+      border-color: white;
+      color: #c0c4cc;
+      cursor: not-allowed;
+      padding: 0px !important;
+    }
+    :deep .el-input.is-disabled .el-input__inner{
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #303133 !important;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+  }
+.drawer-main {
+  position: relative;
+  height: 100%;
+  padding: 0px 20px 0px 10px;
+}
+.footer {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+:deep .el-form-item__label{
+  font-family: PingFangSC-Regular;
+  font-size: 13px;
+  color: #303133;
+  letter-spacing: 0;
+  text-align: right;
+
+  font-weight: 400;
+}
+:deep .el-input--small .el-input__inner{
+  font-family: PingFangSC-Regular;
+  font-size: 13px;
+  // color: #B0B4BD;
+  letter-spacing: 0;
+
+  font-weight: 400;
+}
+}
+.add-view {
+  position: relative;
+  text-align: right;
+  .addbtn {
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    right: 0px;
+    z-index: 1000;
+  }
+}
+.el-table .del {
+  color: #f56c6c !important;
+}
+// .span{
+//   display: inline-block;
+//   padding-left: 15px;
+// }
+.lookDetail {
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #0160c0;
+  letter-spacing: 0;
+  line-height: 14px;
+  font-weight: 400;
+}
+.dashboard-main {
+  width: 100%;
+  height: calc(100% - 50px);
+  box-sizing: border-box;
+  padding: 16px;
+  :deep .el-dialog__header {
+    padding-top: 16px !important;
+  }
+  :deep .el-dialog__title {
+    position: relative;
+    font-family: PingFangSC-Semibold;
+    font-size: 16px;
+    color: #303133;
+    letter-spacing: 0;
+    line-height: 16px;
+    font-weight: 600;
+  }
+  :deep .el-dialog__title::before {
+    display: block;
+      content: '';
+      clear: both;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      left: -8px;
+      width: 4px;
+      height: 14px;
+      background: #0160C0;
+  }
+  :deep .el-drawer__header {
+    position: relative;
+    font-family: PingFangSC-Semibold;
+    font-size: 16px;
+    color: #303133;
+    letter-spacing: 0;
+    line-height: 16px;
+    font-weight: 600;
+    padding: 11px 20px 11px 20px;
+  }
+  :deep .el-drawer__header::before {
+    display: block;
+      content: '';
+      clear: both;
+      position: absolute;
+      // bottom: 5px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      left: 12px;
+      width: 4px;
+      height: 16px;
+      background: #0160C0;
+  }
+  :deep .el-switch.is-disabled {
+    opacity: 1;
+  }
+  :deep .el-textarea__inner {
+    resize: none;
+  }
+  :deep .el-select {
+    width: 100%;
+  }
+  :deep .el-date-editor {
+    width: 100%;
+  }
+}
+:deep .drawer-title {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #303133;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+.drawer-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 14px;
+  width: 3px;
+  background: #0160c0;
+}
+.el-dialog__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 14px;
+  width: 3px;
+  background: #0160c0;
+}
+:deep .el-drawer__header {
+  margin-bottom: 0;
+}
+:deep .el-tabs__header {
+  margin-bottom: 0px!important;
+  margin-top: 10px;
+}
+:deep .el-dialog__header{
+  // padding-top: 0px!important;
+}
+.ellipsis {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.backHead {
+  // position:fixed;
+  // top: 0;
+  // left: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  padding-left: 15px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+  // z-index: 999;
+}
+// 文件上传样式
+:deep .el-upload--picture-card {
+  width: 100px;
+  height: 100px;
+  line-height: 104px;
+}
+:deep .el-upload-list--picture-card .el-upload-list__item {
+  width: 100px;
+  height: 100px;
+}
