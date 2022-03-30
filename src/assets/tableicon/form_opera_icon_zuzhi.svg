@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>form_opera_icon_zuzhi</title>
+    <g id="交换系统" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="补充切图" transform="translate(-234.000000, -193.000000)">
+            <g id="form_opera_icon_detail" transform="translate(233.750000, 192.500000)">
+                <g id="编组-13" transform="translate(10.500000, 10.500000)">
+                    <rect id="矩形" stroke="#0160C0" stroke-linecap="round" x="4.9997765" y="0.353032323" width="5.000447" height="4.64741468" rx="0.5"></rect>
+                    <g id="编组-9" transform="translate(0.000000, 10.766547)" stroke="#0160C0" stroke-linecap="round">
+                        <rect id="矩形" x="0" y="0" width="3.62265078" height="3.62265078" rx="0.5"></rect>
+                        <rect id="矩形" x="5.68867461" y="0" width="3.62265078" height="3.62265078" rx="0.5"></rect>
+                        <rect id="矩形" x="11.3773492" y="0" width="3.62265078" height="3.62265078" rx="0.5"></rect>
+                    </g>
+                    <path d="M1.769854,10.5605806 L1.769854,8.07787196 C1.769854,7.80172959 1.99371162,7.57787196 2.269854,7.57787196 L12.730146,7.57787196 C13.0062884,7.57787196 13.230146,7.80172959 13.230146,8.07787196 L13.230146,10.8073746 L13.230146,10.5605806" id="路径" stroke="#0160C0" stroke-linecap="round"></path>
+                    <rect id="矩形" fill="#0160C0" x="7" y="4.84542877" width="1" height="5.96194581" rx="0.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

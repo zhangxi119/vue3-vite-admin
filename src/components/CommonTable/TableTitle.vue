@@ -7,7 +7,7 @@
       :class="{ 'right-active': isUp }"
       @click="toggleBox"
       >{{ rightText }}
-      <img :src="require('@/assets/tableicon/down-icon.svg')" alt="" />
+      <!-- <img :src="require('@/assets/tableicon/down-icon.svg')" alt="" /> -->
     </div>
   </div>
 </template>

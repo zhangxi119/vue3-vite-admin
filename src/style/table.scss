@@ -1,0 +1,168 @@
+// 项目颜色变量
+$colorPrimary: #0160C0; // 主要颜色
+$colorSuccess: #67C23A; // 成功颜色
+$colorWarning: #E6A23C; // 警告颜色
+$colorDanger: #F56C6C; // 失败颜色
+$colorInfo: #909399; // 信息颜色
+
+// sidebar侧边栏变量
+$menuText: #bfcbd9;
+$menuActiveText: #409EFF;
+$subMenuActiveText: $colorPrimary; // https://github.com/ElemeFE/element/issues/12951
+$menuBg: #304156;
+$menuHover: #263445;
+$subMenuBg: #1f2d3d;
+$subMenuHover: #001528;
+$sideBarWidth: 200px;
+$firstLevelSideBarWidth:54px;
+$collapseSideBarWidth: 265px;
+
+// 项目文字颜色变量
+$colorTextPrimary: #303133; // 主要文字颜色
+$colorTextRegular: #606266; // 常规文字颜色
+$colorTextSecondary: #909399; // 次要文字颜色
+$colorTextPlaceholder: #B0B4BD; // 占位文字颜色
+
+// 项目border变量
+$borderRadius: 4px;
+$smallBorderRadius: 2px;
+
+// element-ui默认文字变量
+$elFontSize: 13px;
+$elFontDisabledColor: #bbb;
+
+// el-checkbox
+$elCheckboxInputWidth: 14px;
+$elCheckboxInputHeight: 14px;
+
+// el-radio
+$elRadioInputWidth: 14px;
+$elRadioInputHeight: 14px;
+
+// el-input
+$elInputWidth: 206px;
+$elInputHeight: 32px;
+
+// tree color
+$treeHoverBgColor: #cae6fe;
+
+// el-table
+$elTableBorderColor: #DCDFE6; // table的边框颜色
+$elTableHeaderBgColor: #F0F2F5; // table表头的背景颜色
+$elTableRowHoverBgColor: #EBF5FE; // table行的hover颜色
+$elTableTextColor: #606266; // table表格的文字颜色
+$elTableHeaderColor: $elTableTextColor; // table表格表头的文字颜色,默认跟table的文字颜色相同
+$elTableHeaderTextWeight: 700; // table表格表头的文字粗细
+// el-table-border-color
+.el-table {
+  color: $elTableTextColor;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right: 1px solid #cfcfcf;
+  border-bottom: 1px solid $elTableBorderColor;
+
+  th {
+    &:nth-last-of-type(2) {
+      border-right-color: transparent !important;
+    }
+
+    &.gutter {
+      border-right-color: transparent !important;
+      border-left-color: transparent !important;
+    }
+  }
+  th.has-right{
+    border-right-color: #cfcfcf !important;
+  }
+
+
+  thead {
+    color: $elTableHeaderColor;
+
+    th {
+      border-right-color: #cfcfcf !important;
+      border-bottom-color: #cfcfcf !important;
+
+      .cell {
+        font-weight: $elTableHeaderTextWeight;
+        color: #212123;
+
+      }
+    }
+  }
+
+  &:after,
+  &:before {
+    background: transparent;
+  }
+
+  th {
+    background: $elTableHeaderBgColor !important;
+  }
+}
+.headBgColor.el-table {
+  th {
+    background: #FAFAFB !important;
+  }
+}
+
+.el-table__row {
+
+  // &:last-child{
+  //   td{
+  //     border-bottom: none;
+  //   }
+  // }
+  td {
+    border-right-color: #cfcfcf !important;
+    bottom: -1px;
+
+    &:last-child {
+      border-right-color: transparent !important;
+    }
+  }
+
+  cursor: pointer !important;
+
+  &.hover-row {
+    cursor: pointer !important;
+
+    td {
+      background: $elTableRowHoverBgColor !important;
+    }
+  }
+}
+
+//.el-table__fixed, .el-table__fixed-right, .el-table__fixed-left {
+//  box-shadow: inset 0 -1px 0 0 #EBEEF5;
+//}
+
+.el-table__empty-text {
+  line-height: 20px;
+  padding: 10px;
+}
+
+
+.el-table__body {
+  tr {
+    &.current-row {
+      td {
+        background: #cae6fe;
+      }
+    }
+  }
+}
+
+.el-table th.gutter {
+  display: table-cell !important;
+}
+
+.el-table__fixed {
+  bottom: 0 !important;
+}
+
+.el-table__fixed-body-wrapper .el-table__body {
+  padding-bottom: 5px;
+}
+
+

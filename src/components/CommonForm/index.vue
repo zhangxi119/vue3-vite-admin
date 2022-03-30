@@ -35,7 +35,7 @@
               <component
                 :is="formItem.component"
                 v-else
-                v-model.trim="formInline[formItem.field]"
+                v-model:selectValue="formInline[formItem.field]"
                 v-bind="formItem.componentProps"
                 v-on="formItem.componentEvents"
               ></component>
@@ -75,19 +75,19 @@
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
-import 'element-plus/es/components/input/style/css'
-import 'element-plus/es/components/cascader/style/css'
-import 'element-plus/es/components/date-picker/style/css'
-import { Input, Cascader, DatePicker } from 'element-plus';
+// import 'element-plus/es/components/input/style/css'
+// import 'element-plus/es/components/cascader/style/css'
+// import 'element-plus/es/components/date-picker/style/css'
+// import { Input, Cascader, DatePicker } from 'element-plus';
 import Select from '../CommonTable/CommonSelect.vue';
 
 export default {
   name: 'CommonForm',
   components: {
-    Input,
-    Select,
-    Cascader,
-    DatePicker
+    // Input,
+    // Cascader,
+    // DatePicker,
+    Select
   },
   props: {
     formConfig: {

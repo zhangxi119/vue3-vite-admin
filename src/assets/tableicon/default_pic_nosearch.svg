@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91px" height="91px" viewBox="0 0 91 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>default_pic_nosearch</title>
+    <g id="交换系统" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="补充切图" transform="translate(-236.000000, -364.000000)">
+            <g id="编组-5" transform="translate(236.113333, 364.250000)">
+                <g id="编组-3">
+                    <rect id="矩形" stroke="#979797" fill="#D8D8D8" opacity="0" x="0.5" y="0.5" width="89" height="89"></rect>
+                    <ellipse id="椭圆形" fill="#F7F7F7" cx="45" cy="80.5" rx="44" ry="5.5"></ellipse>
+                    <path d="M57.018,12.9990629 L68,24.1830629 L68,62 C68,64.209139 66.209139,66 64,66 L26,66 C23.790861,66 22,64.209139 22,62 L22,17 C22,14.790861 23.790861,13 26,13 L57.018,12.9990629 Z" id="形状结合" fill="#F6F6F6"></path>
+                    <rect id="矩形" fill="#DCE0E7" x="25" y="21" width="12" height="3" rx="1.5"></rect>
+                    <rect id="矩形备份" fill="#DCE0E7" x="25" y="28" width="22" height="3" rx="1.5"></rect>
+                    <path d="M57.0561224,21.9497705 C57.0561224,23.0716471 57.9681123,23.9831718 59.0905612,23.9831718 L68,24 L57,13 L57.0561224,21.9497705 Z" id="路径" fill="#DCE0E6" fill-rule="nonzero"></path>
+                    <g id="编组-2" transform="translate(51.347116, 46.630906) rotate(-45.000000) translate(-51.347116, -46.630906) translate(41.847116, 33.630906)">
+                        <circle id="椭圆形" fill="#C4CDD6" cx="9.28571429" cy="9.28571429" r="9.28571429"></circle>
+                        <circle id="椭圆形" fill="#F6F6F6" cx="9.28571429" cy="9.28571429" r="6.5"></circle>
+                        <rect id="矩形" fill="#C4CDD6" x="7.94633279" y="16.5967583" width="2.78571429" height="9.28571429" rx="1.39285714"></rect>
+                    </g>
+                    <path d="M77,55 L77,74 C77,76.7614237 74.7614237,79 72,79 L18,79 C15.2385763,79 13,76.7614237 13,74 L13,55 L31,55 L31,60 C31,61.0543618 31.8158778,61.9181651 32.8507377,61.9945143 L33,62 L57,62 C58.1045695,62 59,61.1045695 59,60 L59,60 L59,55 L77,55 Z" id="形状结合" fill="#DCE0E7"></path>
+                </g>
+                <polygon id="路径-2" fill="#AEB8C2" points="22 39.5 13 55 22 55"></polygon>
+                <polygon id="路径-2备份" fill="#AEB8C2" transform="translate(72.500000, 47.250000) scale(-1, 1) translate(-72.500000, -47.250000) " points="77 39.5 68 55 77 55"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

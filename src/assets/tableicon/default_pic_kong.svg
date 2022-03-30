@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91px" height="91px" viewBox="0 0 91 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>default_pic_kong</title>
+    <g id="交换系统" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="补充切图" transform="translate(-13.000000, -364.000000)">
+            <g id="编组-6" transform="translate(13.833333, 364.250000)">
+                <g id="编组-5">
+                    <g id="编组-3">
+                        <rect id="mask" fill="#D8D8D8" opacity="0" x="0" y="0" width="90" height="90"></rect>
+                        <ellipse id="椭圆形" fill="#F7F7F7" cx="45" cy="80.5" rx="44" ry="5.5"></ellipse>
+                        <rect id="矩形" fill="#F6F6F6" x="22" y="15" width="46" height="53" rx="4"></rect>
+                        <rect id="矩形" fill="#DCE0E7" x="28" y="22" width="33" height="16" rx="2"></rect>
+                        <rect id="矩形" fill="#DCE0E7" x="30" y="45" width="30" height="3" rx="1.5"></rect>
+                        <rect id="矩形备份" fill="#DCE0E7" x="30" y="52" width="30" height="3" rx="1.5"></rect>
+                        <path d="M77,57 L77,76 C77,78.7614237 74.7614237,81 72,81 L18,81 C15.2385763,81 13,78.7614237 13,76 L13,57 L31,57 L31,62 C31,63.0543618 31.8158778,63.9181651 32.8507377,63.9945143 L33,64 L57,64 C58.1045695,64 59,63.1045695 59,62 L59,62 L59,57 L77,57 Z" id="形状结合" fill="#DCE0E7"></path>
+                    </g>
+                    <polygon id="路径-2" fill="#AEB8C2" points="22 41.5 13 57 22 57"></polygon>
+                    <polygon id="路径-2备份" fill="#AEB8C2" transform="translate(72.500000, 49.250000) scale(-1, 1) translate(-72.500000, -49.250000) " points="77 41.5 68 57 77 57"></polygon>
+                </g>
+                <g id="编组-4" transform="translate(68.000000, 3.000000)">
+                    <rect id="矩形" stroke="#979797" fill="#D8D8D8" opacity="0" x="0.5" y="0.5" width="21" height="21"></rect>
+                    <path d="M11,1 C15.9705627,1 20,5.02943725 20,10 C20,13.3307724 18.1906474,16.238948 15.5012068,17.795262 L15.5,21 L11,19.0652507 L6.5,21 L6.49979331,17.7958407 C3.80980113,16.2396689 2,13.3311853 2,10 C2,5.02943725 6.02943725,1 11,1 Z M11,4 L9.38359056,7.27520327 L5.76918916,7.80040653 L8.38459458,10.3497967 L7.76718111,13.9495935 L11,12.25 L14.2328189,13.9495935 L13.6154054,10.3497967 L16.2308108,7.80040653 L12.6164094,7.27520327 L11,4 Z" id="形状结合" fill="#DCE0E7"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

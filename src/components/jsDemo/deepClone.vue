@@ -5,19 +5,13 @@
     <h1>深克隆</h1>
     <button type="button" @click="count++">count is: {{ count }}</button>
     <!-- <DatePicker></DatePicker> -->
-    <elInput></elInput>
   </div>
 </template>
 <script>
-  import { input } from 'element-plus'
   import { defineComponent, ref, toRef, onMounted } from 'vue'
   export default defineComponent({
     props: {
       msg: String
-    },
-    components: {
-      // DatePicker
-      elInput: input
     },
     setup(props) {
       const count = ref(0)

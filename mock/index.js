@@ -6,7 +6,7 @@ let mockData = Mock.mock({
     'total': 18,
     'pageNum': 1,
     'pageSize': 10,
-    'list|18': [
+    'list|10': [
       {
         'param_01': '@id()', 
         'param_02': 'MOCK随机数据', 
@@ -34,16 +34,40 @@ let mockData = Mock.mock({
     ]
   }
 })
+let selectMock = Mock.mock({
+  'code': 0,
+  'message': 'success',
+  'data': {
+    'total': 18,
+    'pageNum': 1,
+    'pageSize': 10,
+    'list|5': [
+      {
+        'codeName': '@cname(2,5)',
+        'code': '@id()',
+        'param_01': '@id()', 
+        'param_02': 'MOCK随机数据', 
+        'param_03': '@date(yyyy-mm-dd)', 
+        'param_04': '@city(true)',
+        'param_05': /^1[0-9]{10}$/, 
+      },
+    ]
+  }
+})
+
 export default [
   {
       url: "/api/getUsers",
       method: "post",
       response: () => {
-          return {
-              code: 0,
-              message: "ok",
-              data: mockData,
-          }
+          return mockData
       }
-  }
+  },
+  {
+    url: "/api/selectList",
+    method: "post",
+    response: () => {
+        return selectMock
+    }
+}
 ]

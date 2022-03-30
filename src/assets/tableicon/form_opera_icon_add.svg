@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>form_opera_icon_add</title>
+    <g id="交换系统" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="补充切图" transform="translate(-186.000000, -193.000000)">
+            <g id="edit-icon" transform="translate(185.596667, 192.500000)">
+                <g id="编组-15" transform="translate(9.500000, 9.000000)">
+                    <g id="编组-3" transform="translate(8.500000, 9.000000) scale(-1, 1) translate(-8.500000, -9.000000) translate(0.000000, 0.500000)">
+                        <g id="编组-4" transform="translate(3.000000, 5.000000)" fill="#67C23A">
+                            <rect id="矩形" transform="translate(7.948729, 4.510784) scale(-1, 1) rotate(-135.000000) translate(-7.948729, -4.510784) " x="5.44872902" y="4.01078419" width="5" height="1" rx="0.5"></rect>
+                            <rect id="矩形" transform="translate(4.000000, 3.500000) scale(-1, 1) rotate(-225.000000) translate(-4.000000, -3.500000) " x="0" y="3" width="8" height="1" rx="0.5"></rect>
+                        </g>
+                        <circle id="椭圆形" stroke="#67C23A" cx="8.5" cy="8.5" r="7.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

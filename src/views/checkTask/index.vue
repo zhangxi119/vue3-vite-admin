@@ -112,9 +112,9 @@
 </template>
 
 <script>
-import CommonTable from '@/components/CommonTable';
-import TabsForm from '@/components/TabsForm';
-import { queryKnowledge, getDictByField1Mock } from '@/api/index.js';
+import CommonTable from '@/components/CommonTable/index.vue';
+import TabsForm from '@/components/TabsForm/index.vue';
+import { queryKnowledge, getDictByField1Mock, getSelectList } from '@/api/index.js';
 export default {
   name: 'Disease',
   components: {
@@ -125,7 +125,7 @@ export default {
     const _this = this
     //报表状态
     const MOCK_LIST = []
-    getDictByField1Mock({field: 'MOCK_LIST'}).then(res => {
+    getSelectList({field: 'MOCK_LIST'}).then(res => {
       console.log(res)
       res.data.list.forEach(item => {
         MOCK_LIST.push({
@@ -355,16 +355,29 @@ export default {
     },
     // 删除
     del(item) {
-      this.$confirm('是否删除该条报表?', '提示', {
-          confirmButtonText: '确 定',
-          cancelButtonText: '取 消',
+      ElMessageBox.confirm(
+        '是否删除该条报表?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
           type: 'warning',
-        })
+        }
+      )
         .then(() => {
           this.getDictByField1Mock(item.rid)
         })
-        .catch(() => {
-        });
+        .catch(() => {})
+      // this.$confirm('是否删除该条报表?', '提示', {
+      //     confirmButtonText: '确 定',
+      //     cancelButtonText: '取 消',
+      //     type: 'warning',}
+      //   })
+      //   .then(() => {
+      //     this.getDictByField1Mock(item.rid)
+      //   })
+      //   .catch(() => {
+      //   });
     },
 
     // 显示sql详情
@@ -424,7 +437,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/style/commonTable.scss';
 .dashboard-main{
   height: 100%;

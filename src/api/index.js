@@ -16,3 +16,8 @@ export const getDictByField1Mock = params => {
     ...params,
   })
 }
+export const getSelectList = params => {
+  return request.post(`/api/selectList`, {
+    ...params,
+  })
+}

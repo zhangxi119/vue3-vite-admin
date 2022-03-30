@@ -5,7 +5,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from "vite-plugin-mock"
-import ElementPlus from 'unplugin-element-plus/vite'
 // // https://vitejs.dev/config/
 // export default defineConfig({
 //   plugins: [vue()]
@@ -26,7 +25,6 @@ export default defineConfig({
     viteMockServe({
       supportTs: false,
     }),
-    ElementPlus()
   //   styleImport({
   //     libs: [
   //       {
@@ -84,7 +82,7 @@ export default defineConfig({
       assets: path.resolve(__dirname, "./src/assets"),
       com: path.resolve(__dirname, "./src/components"),
       store: path.resolve(__dirname, "./src/store"),
-      mixins: path.resolve(__dirname, "./src/mixins")
+      mixins: path.resolve(__dirname, "./src/mixins"),
     },
   },
   css: {

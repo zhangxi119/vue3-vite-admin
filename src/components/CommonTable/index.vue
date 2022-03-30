@@ -52,7 +52,7 @@
           <el-table-column fixed='left' v-if="hasSelection" type="selection" width="55" :reserve-selection="rowKey ? true : false">
           </el-table-column>
           <el-table-column  fixed='left' v-if="hasIndex" label="序号" width="55" type="index">
-            <template slot-scope="scope">
+            <template #default="scope">
               <span>{{
                 (pageParams.pageNo - 1) * pageParams.pageSize + scope.$index + 1
               }}</span>
@@ -67,7 +67,7 @@
             show-overflow-tooltip
             :resizable="true"
           >
-            <template slot-scope="{ row, column }">
+            <template #default="{ row }">
               <template v-if="row.inputColumn">
                 <slot :name="item.prop + 'Input'" :columuData="row"></slot>
               </template>
@@ -86,17 +86,20 @@
               </template>
             </template>
           </el-table-column>
-          <div slot="empty">
-            <img
-              :src="
-                hasSearch
-                  ? require('@/assets/tableicon/default_pic_nosearch.svg')
-                  : require('@/assets/tableicon/default_pic_kong.svg')
-              "
-              alt=""
-            />
-            <div>{{ hasSearch ? '无搜索结果' : '暂无数据' }}</div>
-          </div>
+          <!-- <div slot="empty"> -->
+          <template #empty>
+            <div>
+              <img
+                :src="
+                  hasSearch
+                    ? nosearch
+                    : emptImg
+                "
+                alt=""
+              />
+              <div>{{ hasSearch ? '无搜索结果' : '暂无数据' }}</div>
+            </div>
+          </template>
         </el-table>
         <el-row v-if="isShowPagination" class="pagination-row">
           <el-col
@@ -129,18 +132,14 @@
 </template>
 
 <script>
-// import { Input, DatePicker, Cascader } from 'element-plus';
 import CommonSelect from './CommonSelect.vue';
 import CommonForm from '../CommonForm/index.vue';
 import { API_CODE_OK } from '../../constants/AppConstants';
-
+import nosearch from '@/assets/tableicon/default_pic_nosearch.svg'
+import emptImg from '@/assets/tableicon/default_pic_kong.svg'
 export default {
   name: 'CommonTable',
   components: {
-    // Input,
-    // Select: CommonSelect,
-    // Cascader,
-    // DatePicker,
     CommonForm,
   },
   filters: {
@@ -255,8 +254,10 @@ export default {
       searchParams: {},
       isLoading: false,
       showAllLeft: 100,
-      tableHeight: '260px',
+      tableHeight: '300px',
       hasSearch: false,
+      nosearch,
+      emptImg
     };
   },
   computed: {
@@ -397,7 +398,7 @@ export default {
       const headerEl = document.querySelector('.table-header');
       const rowEl = document.querySelector('.pagination-row');
       const tableEl = this.$refs.tableRef.$el;
-      this.tableHeight = `${mainEl.offsetHeight -
+      this.tableHeight = `${mainEl.offsetHeight - 30 -
         headerEl.offsetHeight -
         rowEl.offsetHeight}px`;
       tableEl.style.height = this.tableHeight;
@@ -456,7 +457,7 @@ export default {
         this.tableConfig
           .api(params)
           .then(res => {
-            console.log(res.code)
+            console.log(res, '-----------tabe-res')
             console.log(API_CODE_OK,'API_CODE_OKAPI_CODE_OKAPI_CODE_OKAPI_CODE_OKAPI_CODE_OK')
             if(res.code !== API_CODE_OK) {
               console.log(res.message)
@@ -595,6 +596,7 @@ export default {
   }
   :deep .el-pagination {
     padding: 2px 10px;
+    float: right;
     .el-pagination__total {
       float: left;
       color: #303133;
@@ -625,6 +627,9 @@ export default {
 }
 .custom-table-main :deep .link-item a {
   padding-right: 10px;
+}
+:deep .el-scrollbar__view {
+  height: 100%;
 }
 // 表头背景色 #f0f2f5 文字颜色 #202123
 // 右边框颜色 #cfcfcf 下边框颜色 #eff2f7

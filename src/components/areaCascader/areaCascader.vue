@@ -17,7 +17,7 @@
 import { API_CODE_OK } from '@/constants/AppConstants';
 
 export default {
-  name: 'AreaCascader',
+  name: 'AreaCascader2',
   props: {
     value: {
       type: Array,
