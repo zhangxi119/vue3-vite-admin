@@ -21,3 +21,8 @@ export const getSelectList = params => {
     ...params,
   })
 }
+export const getUserInfo = params => {
+  return request.post(`/api/userInfo`, {
+    ...params,
+  })
+}

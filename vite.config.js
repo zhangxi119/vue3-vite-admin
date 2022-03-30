@@ -5,14 +5,9 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from "vite-plugin-mock"
+import legacy from '@vitejs/plugin-legacy'
 // // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [vue()]
-// })
-
 import path from 'path'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -25,21 +20,10 @@ export default defineConfig({
     viteMockServe({
       supportTs: false,
     }),
-  //   styleImport({
-  //     libs: [
-  //       {
-  //         libraryName: 'element-plus',
-  //         esModule: true,
-  //         ensureStyleFile: true,
-  //         resolveStyle: (name) => {
-  //           return `element-plus/lib/theme-chalk/${name}.css`;
-  //         },
-  //         resolveComponent: (name) => {
-  //           return `element-plus/lib/${name}`;
-  //         },
-  //       }
-  //     ]
-  //   })
+    legacy({
+      targets: ['ie >= 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+    })
   ],
 
   /**

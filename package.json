@@ -8,16 +8,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vue/compat": "^3.2.31",
     "axios": "^0.26.1",
     "element-plus": "^2.1.7",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.7.1",
     "@vitejs/plugin-vue": "^2.2.0",
     "cross-env": "^7.0.3",
     "mockjs": "^1.1.0",
+    "regenerator-runtime": "^0.13.9",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "unplugin-auto-import": "^0.6.6",

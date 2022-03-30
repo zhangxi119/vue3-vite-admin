@@ -54,7 +54,13 @@ let selectMock = Mock.mock({
     ]
   }
 })
-
+let userInfo = Mock.mock({
+  'code': 0,
+  'message': 'success',
+  'data': {
+    'token': 'sdfsfefejgljdg'
+  }
+})
 export default [
   {
       url: "/api/getUsers",
@@ -69,5 +75,12 @@ export default [
     response: () => {
         return selectMock
     }
-}
+  },
+  {
+    url: "/api/userInfo",
+    method: "post",
+    response: () => {
+        return userInfo
+    }
+  },
 ]

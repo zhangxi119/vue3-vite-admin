@@ -81,7 +81,7 @@
                     item.formatter(row[item.prop], row)
                   }}</span>
                 <span v-else>{{
-                    row[item.prop] | formatFilter(item.formatOptions)
+                    row[item.prop] || formatFilter(item.formatOptions)
                 }}</span>
               </template>
             </template>
@@ -142,16 +142,17 @@ export default {
   components: {
     CommonForm,
   },
-  filters: {
-    formatFilter(val, list) {
-      if (val == null) return '-';
-      if (!list) {
-        return val;
-      }
-      const result = list.find(el => el.value == val);
-      return result ? result.label : val;
-    },
-  },
+  // vue3.0已移除filters
+  // filters: {
+  //   formatFilter(val, list) {
+  //     if (val == null) return '-';
+  //     if (!list) {
+  //       return val;
+  //     }
+  //     const result = list.find(el => el.value == val);
+  //     return result ? result.label : val;
+  //   },
+  // },
   props: {
     customSearch: {
       type: Boolean,
@@ -376,6 +377,14 @@ export default {
     this.isFastRequest && this.getTableData();
   },
   methods: {
+    formatFilter(val, list) {
+      if (val == null) return '-';
+      if (!list) {
+        return val;
+      }
+      const result = list.find(el => el.value == val);
+      return result ? result.label : val;
+    },
     // pageSize自动减一 然后请求
     getSubRefresh(){
       console.log(this.mustSub, 'mustSub');

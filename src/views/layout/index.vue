@@ -4,9 +4,7 @@
   <div class="common-layout">
     <el-container>
       <el-header>
-        <div class="main-header">
-          <span>LOGO</span>
-        </div>
+        <headerCom></headerCom>
       </el-header>
       <el-container class="el-container">
         <el-aside width="200px">
@@ -49,11 +47,12 @@
   import { ArrowRight } from '@element-plus/icons-vue'
   import sliderMenu from './sliderMenu.vue'
   import { useRouter, useRoute } from 'vue-router' 
+  import headerCom from './header.vue'
   export default defineComponent({
     props: {
       msg: String
     },
-    components: { sliderMenu },
+    components: { sliderMenu, headerCom },
     setup(props) {
       const router = useRouter()
       let menuList = reactive([])
@@ -88,20 +87,6 @@
   width: 100%;
   height: 100%;
   display: flex;
-  .main-header {
-    width: 100%;
-    height: 100%;
-    padding: 0 20px 0 50px;
-    box-sizing: border-box;
-    background: #324057;
-    display: flex;
-    align-items: center;
-    justify-items: left;
-    span {
-      color: #ffffff;
-      font-size: 24px;
-    }
-  }
   .el-header {
     padding: 0;
   }
