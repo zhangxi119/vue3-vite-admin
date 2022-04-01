@@ -1,7 +1,6 @@
 <template>
   <div class="verify-map">
     <div class="chart">
-      <!-- <img class="chart-map" src="@/assets/careInsurance/map.svg" alt="" /> -->
       <img class="chart-info" src="@/assets/screen/info.svg" alt="" />
       <Chart
         :autoresize="true"
@@ -14,7 +13,9 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import mapJson from './510000.json'
+// 若使用其它类型echarts组件提示报错时，需要到main.js查看是否引入该类型组件
 import Chart from 'vue-echarts'
+// 此处需要单独引用Echarts的api方法，新版的vue-echarts示例上好像是没有挂在
 import { registerMap } from "echarts/core";
 const chartOption = ref({})
 const regionCode = '510000'
