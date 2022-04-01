@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="92px" height="113px" viewBox="0 0 92 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>图例子</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1南京照护" transform="translate(-1108.000000, -645.000000)">
+            <g id="编组-4" transform="translate(720.000000, 184.000000)">
+                <g id="图例子" transform="translate(389.000000, 462.000000)">
+                    <g id="编组-12" transform="translate(4.000000, 26.000000)">
+                        <g id="icon_评估机构" transform="translate(0.000000, 3.000000)" fill="#FFFF28" fill-opacity="0.70422894">
+                            <circle id="椭圆形-copy-77" cx="6" cy="6" r="6"></circle>
+                        </g>
+                        <text id="评估机构" opacity="0.803236607" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                            <tspan x="22" y="13">评估机构</tspan>
+                        </text>
+                    </g>
+                    <g id="编组-11" transform="translate(4.000000, 49.000000)">
+                        <g id="icon_参保人" transform="translate(0.000000, 2.000000)" fill="#FFFF28" fill-opacity="0.15" opacity="0.5" stroke="#FFFF28" stroke-opacity="0.75">
+                            <circle id="椭圆形-copy-77备份" cx="6" cy="6" r="5.5"></circle>
+                        </g>
+                        <text id="参保人" opacity="0.803236607" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                            <tspan x="22" y="13">参保人</tspan>
+                        </text>
+                    </g>
+                    <g id="编组-2">
+                        <text id="服务中任务" opacity="0.803236607" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                            <tspan x="26" y="15">服务中任务</tspan>
+                        </text>
+                        <g id="icon_服务中任务">
+                            <circle id="椭圆形-copy" fill="#FFFF28" cx="10" cy="10" r="6"></circle>
+                            <circle id="椭圆形-copy" stroke-opacity="0.490658967" stroke="#FFFF28" stroke-width="1.1" cx="10" cy="10" r="8"></circle>
+                            <circle id="椭圆形-copy" stroke-opacity="0.22155231" stroke="#FFFF28" stroke-width="1.1" cx="10" cy="10" r="10"></circle>
+                        </g>
+                    </g>
+                    <g id="编组-13" transform="translate(6.000000, 72.000000)">
+                        <text id="照护机构" opacity="0.803236607" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                            <tspan x="20" y="13">照护机构</tspan>
+                        </text>
+                        <g id="icon_旗帜" fill-rule="nonzero">
+                            <g id="编组" transform="translate(0.000000, 0.000000)">
+                                <g id="Shape" transform="translate(0.000000, 0.000000)">
+                                    <path d="M1.66681492,15.7303682 L0.618334569,15.7303682 C0.605683222,15.7303682 0.594613294,15.7192982 0.594613294,15.7066469 L0.594613294,0.562984927 C0.594613294,0.260934025 0.841314554,0.014232765 1.14336546,0.014232765 C1.44541636,0.014232765 1.69211762,0.260934025 1.69211762,0.562984927 L1.69211762,15.7082283 C1.6905362,15.7208797 1.67946627,15.7303682 1.66681492,15.7303682 Z" fill="#83C6EF"></path>
+                                    <path d="M1.14336546,0.014232765 C1.13071411,0.014232765 1.11806276,0.0173956017 1.10383,0.0173956017 L1.10383,15.7256239 C1.11648134,15.7272053 1.12913269,15.7303682 1.14336546,15.7303682 C1.44541636,15.7303682 1.69211762,15.4836669 1.69211762,15.181616 L1.69211762,0.562984927 C1.6905362,0.260934025 1.44383494,0.014232765 1.14336546,0.014232765 Z" fill="#429BCF"></path>
+                                    <polygon fill="#F94C10" points="10.0926118 7.24447739 4.84072152 7.24447739 4.84072152 1.81230541 10.0926118 1.81230541 8.63138127 4.52760069"></polygon>
+                                    <polygon fill="#FD8823" points="1.14336546 1.52923153 6.72419076 1.52923153 6.72419076 6.96140351 1.14336546 6.96140351"></polygon>
+                                    <polygon fill="#F94C10" points="6.71786509 1.79016555 8.77370892 4.70155671 8.62347418 4.42797134 10.1021003 1.81230541"></polygon>
+                                    <polygon fill="#1A7FC0" points="2.27407957 15.8521374 0.0126513467 15.8521374 0.594613294 15.0614282 1.6905362 15.0614282"></polygon>
+                                    <polygon fill="#2D416C" points="1.10383 15.8521374 2.27407957 15.8521374 1.6905362 15.0614282 1.10383 15.0614282"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="编组-13备份" transform="translate(5.000000, 95.000000)">
+                        <text id="承办机构" opacity="0.803236607" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" letter-spacing="1" fill="#FFFFFF">
+                            <tspan x="21" y="13">承办机构</tspan>
+                        </text>
+                        <g id="icon_五角星" transform="translate(0.000000, 3.000000)" fill="#F94C10" fill-rule="nonzero">
+                            <path d="M11.6919395,4.21230738 C11.6326366,4.03139601 11.4638861,3.90978753 11.2739667,3.90978753 L7.45395923,3.90978753 L6.27345623,0.301919314 C6.21610507,0.121608474 6.04795508,1.234568e-10 5.8568346,1.234568e-10 C5.66691519,1.234568e-10 5.49816467,0.121608474 5.44021298,0.30056811 L4.25835876,3.90978753 L0.439101986,3.90978753 C0.248582042,3.90978753 0.080281912,4.03139601 0.0217296875,4.21230738 C-0.0375732096,4.39141714 0.0274347764,4.58944378 0.181021777,4.69964208 L3.2715285,6.92853025 L2.09162603,10.5383502 C2.0317226,10.7180605 2.09673059,10.9142855 2.25091812,11.0256849 C2.40315392,11.1364837 2.61334141,11.1364837 2.76632786,11.0256849 L5.8568346,8.79544554 L8.94794186,11.0256849 C9.02375949,11.0806339 9.11429025,11.1091594 9.20542154,11.1091594 C9.29580216,11.1091594 9.38693345,11.0806339 9.46335162,11.0256849 C9.61693861,10.9142855 9.6819466,10.7180605 9.62204316,10.5383502 L8.44334176,6.92853025 L11.5320469,4.69964208 C11.6854838,4.58944378 11.7498912,4.39141714 11.6919395,4.21230738 Z" id="路径"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

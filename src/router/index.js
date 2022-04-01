@@ -10,15 +10,6 @@ const routes = [
     hidden: true,
   },
   {
-    path: '/index',
-    name: 'index',
-    meta: {
-      title: 'JS示例'
-    },
-    component: () => import('@/views/layout/index.vue'),
-    children: [...layoutRouter]
-  },
-  {
     path: '/login',
     name: 'login',
     meta: {
@@ -27,7 +18,24 @@ const routes = [
     hidden: true,
     component: () => import('@/views/login/login.vue'),
   },
-  ...fullScreen
+  {
+    path: '/index',
+    name: 'index',
+    meta: {
+      title: '组件'
+    },
+    component: () => import('@/views/layout/index.vue'),
+    children: [...layoutRouter]
+  },
+  {
+    path: '/screen',
+    name: 'screen',
+    meta: {
+      title: '大屏'
+    },
+    component: () => import('@/views/layout/screenLayout.vue'),
+    children: [...fullScreen]
+  },
 ]
 const router = createRouter({
   history: createWebHashHistory(),

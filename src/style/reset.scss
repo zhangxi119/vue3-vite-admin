@@ -49,3 +49,5 @@ a:hover img{ border:none;}
 /* End hide from IE-mac */
 
 /*png css hack for ie6*/
+
+body::-webkit-scrollbar {display:none}

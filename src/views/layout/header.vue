@@ -5,7 +5,7 @@
       <el-avatar :src="circleUrl" />
       <el-dropdown>
         <span class="el-dropdown-link">
-          admin
+          {{ userInfo.userName }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -26,10 +26,14 @@
 </template>
 <script setup>
 
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-const circleUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
+import { useStore } from 'vuex'
 const router = useRouter() 
+const store = useStore()
+const userInfo = store.getters.GET_USER_INFO
+const circleUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
+
 const outLogin = () => {
   sessionStorage.removeItem('token')
   router.push({name: 'login'})
@@ -57,6 +61,7 @@ const outLogin = () => {
     span {
       margin-left: 10px;
       font-size: 16px;
+      cursor: pointer;
     }
   }
 }

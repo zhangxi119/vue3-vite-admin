@@ -125,6 +125,13 @@ export default {
     const _this = this
     //报表状态
     const MOCK_LIST = []
+    // const { data } = await getSelectList({})
+    // data.list.forEach(item => {
+    //   MOCK_LIST.push({
+    //     label: item.codeName,
+    //     value: item.code
+    //   })
+    // })
     getSelectList({field: 'MOCK_LIST'}).then(res => {
       console.log(res)
       res.data.list.forEach(item => {

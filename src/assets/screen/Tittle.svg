@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1166px" height="56px" viewBox="0 0 1166 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Tittle</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="-15.1749674%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#063085" stop-opacity="0.40064538" offset="0%"></stop>
+            <stop stop-color="#063085" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#063085" stop-opacity="0.639209692" offset="0%"></stop>
+            <stop stop-color="#063085" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-3">
+            <stop stop-color="#156BD7" offset="0%"></stop>
+            <stop stop-color="#0A55B3" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="-18.661782%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#156BD7" offset="0%"></stop>
+            <stop stop-color="#0A55B3" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-5">
+            <stop stop-color="#156BD7" offset="0%"></stop>
+            <stop stop-color="#0A55B3" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-6" points="6.891 12 0 0.066 0 0 400 0 560 0.0776 553.117 12 542.554 12 524.079 44 534.642 44 527.714 56 32.294 56 25.366 44 35.921 44 17.446 12"></polygon>
+        <filter x="-6.0%" y="-29.6%" width="111.9%" height="159.1%" filterUnits="objectBoundingBox" id="filter-8">
+            <feGaussianBlur stdDeviation="10.2556296" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="-1.11022302e-14%" y1="50%" x2="100%" y2="50%" id="linearGradient-9">
+            <stop stop-color="#1D81FF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#00DEFF" offset="49.2729408%"></stop>
+            <stop stop-color="#1D81FF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <filter x="0.0%" y="0.0%" width="100.0%" height="100.0%" filterUnits="objectBoundingBox" id="filter-10">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3评估情况分析" transform="translate(-382.000000, 0.000000)">
+            <g id="Tittle" transform="translate(382.000000, 0.000000)">
+                <g id="背景">
+                    <g id="分组-14">
+                        <path d="M295.139,14 L304.358,29.9686 L159.982,29.9686 L150.763,14 L295.139,14 Z M145.525,14 L154.744,29.9686 L151.368,29.9686 L142.149,14 L145.525,14 Z M139.611,14 L148.83,29.9686 L145.454,29.9686 L136.234,14 L139.611,14 Z M121.868,14 L131.088,29.9686 L127.711,29.9686 L118.492,14 L121.868,14 Z M133.696,14 L142.916,29.9686 L139.54,29.9686 L130.32,14 L133.696,14 Z M115.954,14 L125.173,29.9686 L121.797,29.9686 L112.578,14 L115.954,14 Z M127.782,14 L137.002,29.9686 L133.626,29.9686 L124.406,14 L127.782,14 Z M110.04,14 L119.259,29.9686 L115.883,29.9686 L106.664,14 L110.04,14 Z" id="合并形状" fill="url(#linearGradient-1)"></path>
+                        <polygon id="Fill-3" fill="url(#linearGradient-2)" points="290.408753 9.0391 5.2187 9.0391 4.54747351e-13 -7.49267315e-16 285.189753 -7.49267315e-16"></polygon>
+                        <polygon id="Fill-2" fill="url(#linearGradient-3)" points="319.398 56 317.089 56 285.342 0.9999 0.5698 1 -3.97903932e-13 0 287.067 0"></polygon>
+                        <path d="M306.714,34.0327 L307.866,36.0297 L207.811,36.0297 L206.658,34.0327 L306.714,34.0327 Z M194.719,34.0327 L195.872,36.0297 L175.817,36.0297 L174.664,34.0327 L194.719,34.0327 Z" id="合并形状" fill-opacity="0.6" fill="url(#linearGradient-4)"></path>
+                        <polygon id="Fill-5" fill-opacity="0.8" fill="url(#linearGradient-5)" points="291.737777 12.0303 74.1411 12.0303 72.4142 9.0391 290.010777 9.0391"></polygon>
+                        <polygon id="Fill-8" fill="#156BD7" points="292.8 0 290.49 0 322.822 56 325.132 56"></polygon>
+                    </g>
+                    <g id="分组-14" transform="translate(1003.000000, 28.000000) scale(-1, 1) translate(-1003.000000, -28.000000) translate(840.000000, 0.000000)">
+                        <path d="M295.139,14 L304.358,29.9686 L159.982,29.9686 L150.763,14 L295.139,14 Z M145.525,14 L154.744,29.9686 L151.368,29.9686 L142.149,14 L145.525,14 Z M139.611,14 L148.83,29.9686 L145.454,29.9686 L136.234,14 L139.611,14 Z M121.868,14 L131.088,29.9686 L127.711,29.9686 L118.492,14 L121.868,14 Z M133.696,14 L142.916,29.9686 L139.54,29.9686 L130.32,14 L133.696,14 Z M115.954,14 L125.173,29.9686 L121.797,29.9686 L112.578,14 L115.954,14 Z M127.782,14 L137.002,29.9686 L133.626,29.9686 L124.406,14 L127.782,14 Z M110.04,14 L119.259,29.9686 L115.883,29.9686 L106.664,14 L110.04,14 Z" id="合并形状" fill="url(#linearGradient-1)"></path>
+                        <polygon id="Fill-3" fill="url(#linearGradient-2)" points="290.408753 9.0391 5.2187 9.0391 4.54747351e-13 -7.49267315e-16 285.189753 -7.49267315e-16"></polygon>
+                        <polygon id="Fill-2" fill="url(#linearGradient-3)" points="319.398 56 317.089 56 285.342 0.9999 0.5698 1 -3.97903932e-13 0 287.067 0"></polygon>
+                        <path d="M306.714,34.0327 L307.866,36.0297 L207.811,36.0297 L206.658,34.0327 L306.714,34.0327 Z M194.719,34.0327 L195.872,36.0297 L175.817,36.0297 L174.664,34.0327 L194.719,34.0327 Z" id="合并形状" fill-opacity="0.6" fill="url(#linearGradient-4)"></path>
+                        <polygon id="Fill-5" fill-opacity="0.8" fill="url(#linearGradient-5)" points="291.737777 12.0303 74.1411 12.0303 72.4142 9.0391 290.010777 9.0391"></polygon>
+                        <polygon id="Fill-8" fill="#156BD7" points="292.8 0 290.49 0 322.822 56 325.132 56"></polygon>
+                    </g>
+                    <g id="椭圆形" transform="translate(303.000000, 0.000000)">
+                        <mask id="mask-7" fill="white">
+                            <use xlink:href="#path-6"></use>
+                        </mask>
+                        <path stroke="#156BD7" stroke-width="2" d="M399.999515,0.999999882 L558.268484,1.07676033 L552.539633,11 L541.976646,11 L522.346959,45 L532.909975,45 L527.136641,55 L32.8713587,55 L27.0980254,45 L37.653041,45 L18.0233535,11 L7.46831248,11 L1.73199916,1.06571423 L399.999515,0.999999882 Z"></path>
+                        <ellipse id="Oval-2" fill-opacity="0.8" fill="#27BCFF" filter="url(#filter-8)" mask="url(#mask-7)" cx="279.85" cy="102.567568" rx="257.5" ry="52.027027"></ellipse>
+                        <rect id="高光线" fill="url(#linearGradient-9)" filter="url(#filter-10)" mask="url(#mask-7)" x="100" y="54" width="200" height="2"></rect>
+                    </g>
+                    <path d="M832,40.48 L838.43,40.48 L841.894,34.48 L835.464,34.48 L832,40.48 Z M837.1,31.6462 L843.53,31.6462 L846.302,26.8462 L839.871,26.8462 L837.1,31.6462 Z M841.507,24.0124 L847.938,24.0124 L850.016,20.4124 L843.586,20.4124 L841.507,24.0124 Z M845.222,17.5786 L851.652,17.5786 L852.823,15.5512 L846.392,15.5512 L845.222,17.5786 Z" id="Fill-19" fill="#156BD7"></path>
+                    <path d="M334.682,40.48 L328.251,40.48 L324.787,34.48 L331.218,34.48 L334.682,40.48 Z M329.582,31.6462 L323.151,31.6462 L320.38,26.8462 L326.81,26.8462 L329.582,31.6462 Z M325.174,24.0124 L318.744,24.0124 L316.665,20.4124 L323.096,20.4124 L325.174,24.0124 Z M321.46,17.5786 L315.029,17.5786 L313.858,15.5512 L320.289,15.5512 L321.46,17.5786 Z" id="Fill-20" fill="#156BD7"></path>
+                </g>
+                <text id="南京市失能人员照护保险信息平台" font-family="PingFangSC-Medium, PingFang SC" font-size="26" font-weight="400" letter-spacing="1" fill="#FFFFFF">
+                    <tspan x="380.5" y="38">南京市失能人员照护保险信息平台</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
