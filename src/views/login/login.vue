@@ -8,10 +8,10 @@
       style="max-width: 800px"
       ref="ruleFormRef"
     >
-      <el-form-item label="用户名" prop="user">
+      <el-form-item :label="$t('login.username')" prop="user">
         <el-input v-model="form.user" placeholder="请输入用户名" />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item :label="$t('login.password')" prop="password">
         <el-input type="password" v-model="form.password" placeholder="请输入密码" />
       </el-form-item>
       <el-form-item>
@@ -24,7 +24,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { getUserInfo } from '@/api/index.js'
+import { getUserInfo, getUserInfoTest } from '@/api/index.js'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex';
 const router = useRouter()

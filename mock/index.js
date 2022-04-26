@@ -79,8 +79,14 @@ export default [
   {
     url: "/api/userInfo",
     method: "post",
-    response: () => {
+    response: config => {
+      const { user } = config.body
+      if (user === 'zxx') {
         return userInfo
+      }
+      return {
+        code: '0'
+      }
     }
   },
 ]

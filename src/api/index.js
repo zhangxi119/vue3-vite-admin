@@ -26,3 +26,8 @@ export const getUserInfo = params => {
     ...params,
   })
 }
+export const getUserInfoTest = params => {
+  return request.post(`/vue-element-admin/user/login`, {
+    ...params,
+  })
+}

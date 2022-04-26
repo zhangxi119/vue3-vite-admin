@@ -23,6 +23,9 @@ import {
   LegendComponent
 } from 'echarts/components'
 
+// 国际化语言
+import i18n from './i18n'
+
 use([
   // 渲染系列组件
   CanvasRenderer,
@@ -42,4 +45,4 @@ import './style/table.scss'
 
 const app = createApp(App)
 // app.component('v-chart', ECharts)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 }).use(router).use(store).mount('#app')
+app.use(ElementPlus, { size: 'small', zIndex: 3000 }).use(router).use(store).use(i18n).mount('#app')
