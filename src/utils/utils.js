@@ -1,50 +1,10 @@
-import { Message } from 'element-ui';
 // import { IAssistant } from 'tymh-pk';
-import { API_CODE_OK } from '@/constants/AppConstants';
-import route from '@/router';
+// import { API_CODE_OK } from '@/constants/AppConstants';
 
-const msgPostMessageOrLocal = (type, message, duration) => {
-  const origin = window.sessionStorage.getItem('portalOrigin');
-  if (origin) {
-    window.top.postMessage(
-      {
-        type: 'alert',
-        alert: {
-          type,
-          duration,
-          message,
-        },
-      },
-      origin,
-    );
-  } else {
-    return Message[type]({
-      message,
-      customClass: 'zZindex',
-      duration,
-    });
-  }
-  return false;
-};
 
-// 打印信息Error
-export const msgError = (message = '系统错误，请联系管理员', duration = 3000) =>
-  msgPostMessageOrLocal('error', message, duration);
-
-// 打印信息Success
-export const msgSuccess = (message = '操作成功!', duration = 3000) =>
-  msgPostMessageOrLocal('success', message, duration);
-
-// 打印信息Info
-export const msgInfo = (message, duration = 3000) =>
-  msgPostMessageOrLocal('info', message, duration);
-
-// 打印信息Warning
-export const msgWarning = (message, duration = 3000) =>
-  msgPostMessageOrLocal('warning', message, duration);
 
 // 请求结果是否成功
-export const isApiSuccess = result => result && result.code === API_CODE_OK;
+export const isApiSuccess = result => result && result.code === 0;
 
 // 验证结果是否正确
 export const checkResult = result => {
@@ -56,39 +16,6 @@ export const checkResult = result => {
     msgError(result.msg);
   }
   return code;
-};
-
-// 函数节流
-export const throttle = (
-  obj = {
-    timer: 0,
-  },
-  cb,
-  date = 200,
-) => {
-  if (!obj.timer) {
-    // eslint-disable-next-line
-    obj.timer = 0;
-  }
-  // eslint-disable-next-line
-  clearTimeout(obj.timer);
-  // eslint-disable-next-line
-  obj.timer = setTimeout(() => {
-    cb();
-  }, date);
-};
-
-// 函数防抖
-export const debounce = (fn, wait) => {
-  let timeout = null;
-  return (...params) => {
-    if (timeout !== null) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(() => {
-      fn.call(this, [...params])
-    }, wait);
-  };
 };
 
 // 日期格式化
@@ -420,17 +347,6 @@ export const deepCopy = o => {
   return o;
 };
 
-// I 助手调用方法
-// export const iAssistantSendMessage = (paramList, scenes = '', sceneId) => {
-//   const iAssistant = new IAssistant(route);
-//   iAssistant.send(paramList, scenes, sceneId);
-// };
-// I 助手调用方法
-// export const iAssistantClearBridgingCache = () => {
-//   const iAssistant = new IAssistant();
-//   iAssistant.clearBridgingCache();
-// };
-
 export const getUnique = () => {
   return Math.random().toString(36).slice(-8);
 };
@@ -452,7 +368,7 @@ export const moveToAnimation = (targetElement, currentY, targetY) => {
     }, 10);
   };
 
-
+// 下载文件
 export const  downloadFile = (blobData, fileName) => {
   const blob = new Blob([blobData])
   const a = document.createElement("a")
@@ -461,4 +377,46 @@ export const  downloadFile = (blobData, fileName) => {
   a.click()
   URL.revokeObjectURL(a.href)
   a.remove();
+}
+
+// 防抖
+const debounce = (fn, delay) => {
+  let timer
+  return function(...args) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+}
+// 节流
+const throttle = (fn, delay) => {
+  let last = 0
+  return function(...args) {
+    const now = Date.now()
+    if (now - last > delay) {
+      last = now
+      fn.apply(this, args)
+    }
+  }
+}
+// 深拷贝
+export const deepClone = (obj, cache = new WeakMap()) => {
+  if (typeof obj !== 'object') return obj
+  if (obj === null) return obj
+  if (obj instanceof Date) return new Date(obj)
+  if (obj instanceof RegExp) return new RegExp(obj)
+  if (cache.get(obj)) return cache.get(obj)
+
+  let cloneObj = new obj.constructor()
+  cache.set(obj, cloneObj)
+  console.log(cache)
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      cloneObj[key] = deepClone(obj[key], cache)
+    }
+  }
+  return cloneObj
 }

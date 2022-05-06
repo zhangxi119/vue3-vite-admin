@@ -7,7 +7,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from "vite-plugin-mock"
 import legacy from '@vitejs/plugin-legacy'
 // // https://vitejs.dev/config/
-import path from 'path'
+// import path from 'path'
+import { resolve } from 'path'
 export default defineConfig({
   plugins: [
     vue(),
@@ -58,15 +59,25 @@ export default defineConfig({
   resolve: {
     // 导入文件夹别名
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      views: path.resolve(__dirname, './src/views'),
-      components: path.resolve(__dirname, './src/components'),
-      utils: path.resolve(__dirname, './src/utils'),
-      less: path.resolve(__dirname, "./src/less"),
-      assets: path.resolve(__dirname, "./src/assets"),
-      com: path.resolve(__dirname, "./src/components"),
-      store: path.resolve(__dirname, "./src/store"),
-      mixins: path.resolve(__dirname, "./src/mixins"),
+      '@': resolve(__dirname, 'src'),
+      // views: path.resolve(__dirname, './src/views'),
+      // components: path.resolve(__dirname, './src/components'),
+      // utils: path.resolve(__dirname, './src/utils'),
+      // less: path.resolve(__dirname, "./src/less"),
+      // assets: path.resolve(__dirname, "./src/assets"),
+      // com: path.resolve(__dirname, "./src/components"),
+      // store: path.resolve(__dirname, "./src/store"),
+      // mixins: path.resolve(__dirname, "./src/mixins"),
+      // alias: [{
+      //   find: "@",
+      //   replacement: path.resolve(__dirname, 'src')
+      // }, {
+      //   find: "components",
+      //   replacement: path.resolve(__dirname, 'src/components')
+      // }, {
+      //   find: "vites",
+      //   replacement: path.resolve(__dirname, 'src/view')
+      // }]
     },
   },
   css: {

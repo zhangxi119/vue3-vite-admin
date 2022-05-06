@@ -1,4 +1,6 @@
 
+import Mock from 'mockjs'
+
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -22,33 +24,24 @@ const users = {
     name: 'Normal Editor'
   }
 }
-
+let userInfo = Mock.mock({
+  'code': 0,
+  'message': 'success',
+  'data': {
+    'token': 'sdfsfefejgljdg'
+  }
+})
 export default [
   {
     url: "/api/userInfo",
     method: "post",
     response: config => {
+      const { user } = config.body
+      if (user === 'zxx') {
         return userInfo
-    }
-  },
-  {
-    url: '/vue-element-admin/user/login',
-    type: 'post',
-    response: config => {
-      const { username } = config.body
-      const token = tokens[username]
-
-      // mock error
-      if (!token) {
-        return {
-          code: 60204,
-          message: 'Account and password are incorrect.'
-        }
       }
-
       return {
-        code: 20000,
-        data: token
+        code: '0'
       }
     }
   },
