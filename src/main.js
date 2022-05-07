@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router/index.js'
+
 import store from './store'
+import router from './router'
+import './permission'
 import ElementPlus from 'element-plus'
 // Echarts组件自行在单文件组件中引用，此处注释掉全局引用
 // import ECharts from 'vue-echarts'
@@ -45,4 +47,4 @@ import './style/table.scss'
 
 const app = createApp(App)
 // app.component('v-chart', ECharts)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 }).use(router).use(store).use(i18n).mount('#app')
+app.use(ElementPlus, { size: 'small', zIndex: 3000 }).use(store).use(router).use(i18n).mount('#app')

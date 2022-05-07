@@ -5,7 +5,7 @@
       <el-avatar :src="circleUrl" />
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ userInfo.userName }}
+          {{ userName }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -29,13 +29,14 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { removeToken } from '@/utils/auth.js'
 const router = useRouter() 
 const store = useStore()
-const userInfo = store.getters.GET_USER_INFO
-const circleUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
+const userName = ref(store.getters.name)
+const circleUrl = ref(store.getters.avatar)
 
 const outLogin = () => {
-  sessionStorage.removeItem('token')
+  removeToken()
   router.push({name: 'login'})
 }
 </script>

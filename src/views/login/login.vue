@@ -23,14 +23,18 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { getUserInfo, getUserInfoTest } from '@/api/index.js'
+import { reactive, ref, watch } from 'vue'
+import { login } from '@/api/index.js'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex';
 const router = useRouter()
 const store = useStore()
 const ruleFormRef = ref()
 let loading = ref(false)
+// 重定向地址
+let redirect = ref(undefined)
+// 重定向参数
+let otherQuery = ref({})
 const form = reactive({
   user: '',
   password: '',
@@ -51,44 +55,82 @@ const rules = reactive({
     },
   ]
 })
+
+// 登录
 const submitForm = async (formEl) => {
   if (!formEl) return
   await formEl.validate(async (valid) => {
     if (valid) {
       loading = true
       const params = {
-        user: form.user,
+        userName: form.user,
         password: form.password
       }
-      const { data, code } = await getUserInfo(params)
-      if (code === 0 && data.token) {
-        loading = false
+      store.dispatch('user/login', params).then(res => {
         ElMessage({
           showClose: true,
           message: '登录成功',
           type: 'success',
         })
-        store.commit('SET_USER_INFO', {userName: form.user, token: data.token})
-        sessionStorage.setItem('token', data.token)
-        router.push({name: 'index'})
-      } else {
+        router.push({path: redirect || '/', query: otherQuery})
         loading = false
+      }).catch((err) => {
         ElMessage({
           showClose: true,
-          message: '登录失败',
+          message: err,
           type: 'warning',
         })
-        sessionStorage.removeItem('token')
-      }
+        loading = false
+      })
+      // const { data, code } = await login(params)
+      // if (code === 0 && data.token) {
+      //   loading = false
+      //   ElMessage({
+      //     showClose: true,
+      //     message: '登录成功',
+      //     type: 'success',
+      //   })
+      //   store.commit('SET_USER_INFO', {userName: form.user, token: data.token})
+      //   sessionStorage.setItem('token', data.token)
+      //   router.push({name: 'index'})
+      // } else {
+      //   loading = false
+      //   ElMessage({
+      //     showClose: true,
+      //     message: '登录失败',
+      //     type: 'warning',
+      //   })
+      //   sessionStorage.removeItem('token')
+      // }
     } else {
+      console.log('error submit!!')
       return false
     }
   })
 }
+// 重置
 const resetForm = (formEl) => {
   if (!formEl) return
   formEl.resetFields()
 }
+// 获取路由参数
+const getOtherQuery = (query) => {
+  return Object.keys(query).reduce((acc, cur) => {
+    if (cur != 'redirect') {
+      acc[cur] = query[cur]
+    }
+    return acc
+  }, {})
+}
+// 监听路由，获取重定向地址
+watch(() => router.currentRoute.value, (toPath) => {
+  console.log(toPath, '--------toPath')
+  if (toPath.query) {
+    redirect = toPath.query.redirect
+    otherQuery = getOtherQuery(toPath.query)
+  }
+},{ immediate: true, deep: true })
+
 </script>
 <style lang="scss" scoped>
 .login-main {

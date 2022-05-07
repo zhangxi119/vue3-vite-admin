@@ -2,8 +2,7 @@ import { createStore } from 'vuex'
 import getters from './getters'
 // const modulesFiles = require.context('./modules', true, /\.js$/)
 const modulesFiles = import.meta.globEager("./modules/*.js") 
-// you do not need `import app from './modules/app'`
-// it will auto require all vuex module from modules file
+// 自动引入modules目录下的文件
 let modules = {}
 for(const modulePath in modulesFiles) {
   let moduleAllName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')

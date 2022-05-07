@@ -24,25 +24,47 @@ const users = {
     name: 'Normal Editor'
   }
 }
-let userInfo = Mock.mock({
-  'code': 0,
-  'message': 'success',
-  'data': {
-    'token': 'sdfsfefejgljdg'
-  }
-})
+
 export default [
   {
-    url: "/api/userInfo",
+    url: "/mock/user/login",
     method: "post",
     response: config => {
-      const { user } = config.body
-      if (user === 'zxx') {
-        return userInfo
+      const { userName } = config.body
+      const token = tokens[userName]
+      if (!token) {
+        return Mock.mock({
+          'code': -1,
+          'message': 'error',
+        })
       }
-      return {
-        code: '0'
+      return Mock.mock({
+        'code': 0,
+        'message': 'success',
+        'data': token
+      })
+    }
+  },
+  // get user info
+  {
+    url: '/mock/user/info',
+    type: 'get',
+    response: config => {
+      // alert(config.query)
+      const { token } = config.query
+      const info = users[token]
+
+      // mock error
+      if (!info) {
+        return Mock.mock({
+          'code': -1,
+          'message': 'Login failed, unable to get user details.'
+        })
       }
+      return Mock.mock({
+        'code': 0,
+        'data': info
+      })
     }
   },
 ]

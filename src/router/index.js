@@ -1,8 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+// 引入子路由
 import layoutRouter from "./layout.router"
 import fullScreen from "./fullScreen.router"
-import { nextTick } from "vue";
-const routes = [
+
+import Layout from '@/views/layout/index.vue'
+import ScreenLayout from '@/views/layout/screenLayout.vue'
+
+export const constantRoutes = [
   {
     path: '/',
     redirect: '/index',
@@ -24,7 +28,7 @@ const routes = [
     meta: {
       title: '组件'
     },
-    component: () => import('@/views/layout/index.vue'),
+    component: Layout,
     children: [...layoutRouter]
   },
   {
@@ -33,20 +37,47 @@ const routes = [
     meta: {
       title: '大屏'
     },
-    component: () => import('@/views/layout/screenLayout.vue'),
+    component: ScreenLayout,
     children: [...fullScreen]
   },
 ]
+export const asyncRoutes = [
+  {
+    path: '/permission',
+    name: 'Permission',
+    component: Layout,
+    meta: {
+      title: 'permission',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: '/page',
+        name: 'PermissionPage',
+        component: () => import('@/views/login/login.vue'),
+        meta: {
+          title: 'PermissionPage',
+          roles: ['admin']
+        }
+      },
+      {
+        path: '/page',
+        name: 'PermissionPage',
+        component: () => import('@/views/login/login.vue'),
+        meta: {
+          title: 'PermissionPage',
+          roles: ['editor']
+        }
+      },
+    ]
+  }
+]
+
+// 创建路由实例
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: constantRoutes,
 })
-router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('token')
-  if( to.meta.notNeedLogin || to.name == 'login' || token ) {
-    next()
-  } else {
-    next({name: 'login'})
-  }
-})
+
 export default router

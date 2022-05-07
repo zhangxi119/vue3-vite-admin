@@ -31,3 +31,18 @@ export const getUserInfoTest = params => {
     ...params,
   })
 }
+
+// mock接口
+
+//登录
+export const login = params => {
+  return request.post(`/mock/user/login`, {
+    ...params,
+  })
+}
+// 通过token获取用户信息
+export const getInfo = params => {
+  return request.get('/mock/user/info', {
+    ...params
+  })
+}
