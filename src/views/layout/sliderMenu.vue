@@ -27,6 +27,19 @@
   </div>
 </template>
 <script>
+// import { defineComponent, computed} from 'vue'
+// import { useStore } from 'vuex'
+// export default defineComponent({
+//   name: "SideItem",
+//   setup(props) {
+//     const store = useStore()
+//     const menuList = computed(() => store.getters.permission_routes)
+//     console.log(menuList, '-----menuList');
+//     return {
+//       menuList,
+//     }
+//   }
+// })
 export default {
   name: "SideItem",
   props: {

@@ -35,8 +35,9 @@ const store = useStore()
 const userName = ref(store.getters.name)
 const circleUrl = ref(store.getters.avatar)
 
-const outLogin = () => {
-  removeToken()
+const outLogin = async() => {
+  // removeToken()
+  await store.dispatch('user/logout')
   router.push({name: 'login'})
 }
 </script>

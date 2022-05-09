@@ -43,7 +43,8 @@
   </div>
 </template>
 <script>
-  import { defineComponent, reactive, ref, toRefs, watch, onMounted } from 'vue'
+  import { defineComponent, reactive, ref, toRefs, watch, onMounted, computed } from 'vue'
+  import { useStore } from 'vuex'
   import { ArrowRight } from '@element-plus/icons-vue'
   import sliderMenu from './sliderMenu.vue'
   import { useRouter, useRoute } from 'vue-router' 
@@ -55,23 +56,20 @@
     components: { sliderMenu, headerCom },
     setup(props) {
       const router = useRouter()
-      let menuList = reactive([])
-      menuList = router.options.routes
+      const store = useStore()
+      // 获取动态路由
+      const menuList = computed(() => store.getters.permission_routes)
       const route = useRoute()
       const state = reactive({
         breadList: []
       })
       onMounted(() => {
-        console.log(menuList, '------menuList')
-        console.log(route.path, '--------')
         state.breadList = route.matched
       })
       watch(() => route.matched, (newVal, oldVal) => {
         state.breadList = newVal
-        console.log(state)
       })
       const menuSelect = (index, indexPath) => {
-        console.log(index, '----------index')
       }
       return {
         ArrowRight,

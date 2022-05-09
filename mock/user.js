@@ -67,4 +67,14 @@ export default [
       })
     }
   },
+  {
+    url: '/mock/user/logout',
+    type: 'post',
+    response: _ => {
+      return Mock.mock({
+        code: 0,
+        data: 'success'
+      })
+    }
+  }
 ]

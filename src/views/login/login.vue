@@ -124,7 +124,6 @@ const getOtherQuery = (query) => {
 }
 // 监听路由，获取重定向地址
 watch(() => router.currentRoute.value, (toPath) => {
-  console.log(toPath, '--------toPath')
   if (toPath.query) {
     redirect = toPath.query.redirect
     otherQuery = getOtherQuery(toPath.query)

@@ -25,8 +25,6 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       // 未登录，先判断是否缓存路由权限
-      console.log(store, '-------store')
-      // debugger
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles) {
         next()
@@ -34,9 +32,11 @@ router.beforeEach(async(to, from, next) => {
       else {
         try {
           const { roles } = await store.dispatch('user/getInfo')
-          console.log(roles, '------roles')
           // 动态添加带有权限标识的路由
-          // const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          accessRoutes.forEach(item => {
+            router.addRoute(item)
+          })
           next({...to, replace: true})
         } catch(err) {
           next(`/login?redirect=${to.path}`)

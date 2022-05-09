@@ -34,7 +34,7 @@ export const getUserInfoTest = params => {
 
 // mock接口
 
-//登录
+// 登录
 export const login = params => {
   return request.post(`/mock/user/login`, {
     ...params,
@@ -44,5 +44,11 @@ export const login = params => {
 export const getInfo = params => {
   return request.get('/mock/user/info', {
     ...params
+  })
+}
+// 退出登录
+export const logout = params => {
+  return request.post(`/mock/user/logout`, {
+    ...params,
   })
 }

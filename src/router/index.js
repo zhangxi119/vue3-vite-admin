@@ -6,6 +6,7 @@ import fullScreen from "./fullScreen.router"
 import Layout from '@/views/layout/index.vue'
 import ScreenLayout from '@/views/layout/screenLayout.vue'
 
+// 固定路由
 export const constantRoutes = [
   {
     path: '/',
@@ -41,32 +42,34 @@ export const constantRoutes = [
     children: [...fullScreen]
   },
 ]
+// 异步动态路由
 export const asyncRoutes = [
   {
     path: '/permission',
     name: 'Permission',
     component: Layout,
+    redirect: '/permission/adminTest',
     meta: {
-      title: 'permission',
+      title: '权限动态路由',
       icon: 'lock',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
       {
-        path: '/page',
-        name: 'PermissionPage',
-        component: () => import('@/views/login/login.vue'),
+        path: '/adminTest',
+        name: 'adminTest',
+        component: () => import('@/views/permissionPage/adminTest.vue'),
         meta: {
-          title: 'PermissionPage',
+          title: 'admin测试页',
           roles: ['admin']
         }
       },
       {
-        path: '/page',
-        name: 'PermissionPage',
-        component: () => import('@/views/login/login.vue'),
+        path: '/editorTest',
+        name: 'editorTest',
+        component: () => import('@/views/permissionPage/editorTest.vue'),
         meta: {
-          title: 'PermissionPage',
+          title: 'editor测试页',
           roles: ['editor']
         }
       },
@@ -79,5 +82,14 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes,
 })
+
+// 重置路由
+export function resetRouter() {
+  const newRouter = createRouter({
+    history: createWebHashHistory(),
+    routes: constantRoutes,
+  })
+  router.matcher = newRouter.matcher
+}
 
 export default router
