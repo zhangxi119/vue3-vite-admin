@@ -18,7 +18,7 @@ export const constantRoutes = [
     path: '/login',
     name: 'login',
     meta: {
-      title: '登录'
+      title: 'login'
     },
     hidden: true,
     component: () => import('@/views/login/login.vue'),
@@ -27,7 +27,7 @@ export const constantRoutes = [
     path: '/index',
     name: 'index',
     meta: {
-      title: '组件'
+      title: 'component'
     },
     component: Layout,
     children: [...layoutRouter]
@@ -36,7 +36,7 @@ export const constantRoutes = [
     path: '/screen',
     name: 'screen',
     meta: {
-      title: '大屏'
+      title: 'screen'
     },
     component: ScreenLayout,
     children: [...fullScreen]
@@ -50,7 +50,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/permission/adminTest',
     meta: {
-      title: '权限动态路由',
+      title: 'sportAuthRouter',
       icon: 'lock',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
@@ -60,16 +60,27 @@ export const asyncRoutes = [
         name: 'adminTest',
         component: () => import('@/views/permissionPage/adminTest.vue'),
         meta: {
-          title: 'admin测试页',
+          title: 'adminTest',
           roles: ['admin']
-        }
+        },
+        children: [
+          {
+            path: '/testPath',
+            name: 'testPath',
+            component: () => import('@/views/permissionPage/editorTest.vue'),
+            meta: {
+              title: '嵌套路由测试',
+              roles: ['editor']
+            }
+          }
+        ]
       },
       {
         path: '/editorTest',
         name: 'editorTest',
         component: () => import('@/views/permissionPage/editorTest.vue'),
         meta: {
-          title: 'editor测试页',
+          title: 'editorTest',
           roles: ['editor']
         }
       },

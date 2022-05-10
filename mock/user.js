@@ -1,5 +1,6 @@
 
 import Mock from 'mockjs'
+const API_CODE_OK = 0
 
 const tokens = {
   admin: {
@@ -39,7 +40,7 @@ export default [
         })
       }
       return Mock.mock({
-        'code': 0,
+        'code': API_CODE_OK,
         'message': 'success',
         'data': token
       })
@@ -62,7 +63,7 @@ export default [
         })
       }
       return Mock.mock({
-        'code': 0,
+        'code': API_CODE_OK,
         'data': info
       })
     }
@@ -72,7 +73,7 @@ export default [
     type: 'post',
     response: _ => {
       return Mock.mock({
-        code: 0,
+        code: API_CODE_OK,
         data: 'success'
       })
     }

@@ -24,10 +24,11 @@
         </el-aside>
         <el-main class="el-main">
           <div class="breadcrumb">
-            <el-breadcrumb :separator-icon="ArrowRight">
+            <!-- <el-breadcrumb :separator-icon="ArrowRight">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item v-for="item in breadList" :key="item.path" :to="{ path: item.path}">{{item.meta.title}}</el-breadcrumb-item>
-            </el-breadcrumb>
+            </el-breadcrumb> -->
+            <Breadcrumb />
           </div>
           <div class="main-container">
             <router-view v-slot="{ Component }">
@@ -49,11 +50,12 @@
   import sliderMenu from './sliderMenu.vue'
   import { useRouter, useRoute } from 'vue-router' 
   import headerCom from './header.vue'
+  import Breadcrumb from './components/Breadcrumb.vue'
   export default defineComponent({
     props: {
       msg: String
     },
-    components: { sliderMenu, headerCom },
+    components: { sliderMenu, headerCom, Breadcrumb },
     setup(props) {
       const router = useRouter()
       const store = useStore()

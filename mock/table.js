@@ -35,29 +35,25 @@ let tabelList = Mock.mock(
   }
 )
 let tableSearch = Mock.mock({
-  'code': 0,
-  'message': 'success',
-  'data': {
-    'total': 18,
-    'pageNum': 1,
-    'pageSize': 10,
-    'list|5': [
-      {
-        'codeName': '@cname(2,5)',
-        'code': '@id()',
-        'param_01': '@id()', 
-        'param_02': 'MOCK随机数据', 
-        'param_03': '@date(yyyy-mm-dd)', 
-        'param_04': '@city(true)',
-        'param_05': /^1[0-9]{10}$/, 
-      },
-    ]
-  }
+  'total': 18,
+  'pageNum': 1,
+  'pageSize': 10,
+  'list|5': [
+    {
+      'codeName': '@cname(2,5)',
+      'code': '@id()',
+      'param_01': '@id()', 
+      'param_02': 'MOCK随机数据', 
+      'param_03': '@date(yyyy-mm-dd)', 
+      'param_04': '@city(true)',
+      'param_05': /^1[0-9]{10}$/, 
+    },
+  ]
 })
 export default [
   // table表数据
   {
-    url: "/api/getUsers",
+    url: "/mock/table/list",
     method: "post",
     response: () => {
         let res = deepClone(responseData)
@@ -67,10 +63,12 @@ export default [
   },
   // 筛选条件数据
   {
-    url: "/api/selectList",
+    url: "/mock/dict/list",
     method: "post",
     response: () => {
-        return tableSearch
+      let res = deepClone(responseData)
+      res.data = tableSearch
+      return res
     }
   },
 ]

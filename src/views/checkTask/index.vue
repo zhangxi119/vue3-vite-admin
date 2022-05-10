@@ -114,7 +114,7 @@
 <script>
 import CommonTable from '@/components/CommonTable/index.vue';
 import TabsForm from '@/components/TabsForm/index.vue';
-import { queryKnowledge, getDictByField1Mock, getSelectList } from '@/api/index.js';
+import { getTableList, getSelectList } from '@/api/index.js';
 export default {
   name: 'Disease',
   components: {
@@ -132,21 +132,22 @@ export default {
     //     value: item.code
     //   })
     // })
-    getSelectList({field: 'MOCK_LIST'}).then(res => {
-      console.log(res)
-      res.data.list.forEach(item => {
-        MOCK_LIST.push({
-          label: item.codeName,
-          value: item.code
-        })
-      })
-    })
+    // console.log(MOCK_LIST, '-------------mock_list');
+    // getSelectList({field: 'MOCK_LIST'}).then(res => {
+    //   console.log(res, '--------------------------------select')
+    //   res.data.list.forEach(item => {
+    //     MOCK_LIST.push({
+    //       label: item.codeName,
+    //       value: item.code
+    //     })
+    //   })
+    // })
     return {
       MOCK_LIST,
       templateList: [],
       queryParams: {},
       tableConfig: {
-        api: queryKnowledge,
+        api: getTableList,
         columns: [
           {
             prop: 'param_01',
@@ -227,7 +228,7 @@ export default {
               label: '区划',
               componentProps: {
                 clearable: true,
-                options: MOCK_LIST,
+                options: [],
                 placeholder: '请选择区划',
               },
             },
@@ -237,7 +238,7 @@ export default {
               label: '承办机构',
               componentProps: {
                 clearable: true,
-                options: MOCK_LIST,
+                options: [],
                 placeholder: '请选择承办机构',
               },
             },
@@ -247,7 +248,7 @@ export default {
               label: '规则分类',
               componentProps: {
                 clearable: true,
-                options: MOCK_LIST,
+                options: [],
                 placeholder: '请选择规则分类',
               },
             },
@@ -257,7 +258,7 @@ export default {
               label: '审核规则',
               componentProps: {
                 clearable: true,
-                options: MOCK_LIST,
+                options: [],
                 placeholder: '请选择审核规则',
               },
             },
@@ -267,7 +268,7 @@ export default {
               label: '服务机构',
               componentProps: {
                 clearable: true,
-                options: MOCK_LIST,
+                options: [],
                 placeholder: '请选择服务机构',
               },
             },
@@ -333,10 +334,27 @@ export default {
   created() {
     this.height = window.innerHeight * 0.7
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    this.initSelect()
   },
   mounted() {
+
   },
   methods: {
+    // 初始化下拉数据
+    async initSelect() {
+      const { data } = await getSelectList({})
+      const list = data.list.map(item => {
+        return {
+          label: item.codeName,
+          value: item.code
+        }
+      })
+      this.tableConfig.formConfig.schema.forEach(item => {
+        if (item.component === 'Select') {
+          item.componentProps.options = list
+        }
+      });
+    },
     // 添加报表
     addNew() {
       this.visible = true
@@ -372,7 +390,7 @@ export default {
         }
       )
         .then(() => {
-          this.getDictByField1Mock(item.rid)
+          this.getTableList(item.rid)
         })
         .catch(() => {})
       // this.$confirm('是否删除该条报表?', '提示', {
@@ -400,7 +418,7 @@ export default {
           const params = Object.assign(this.formData)
           // 新增
           if (this.editTitle == '新增') {
-            getDictByField1Mock(params).then((res)=>{
+            getTableList(params).then((res)=>{
               if(res.code==0){
                 this.$message.success(res.message)
                 this.submitLoading = false;
@@ -412,7 +430,7 @@ export default {
               }
             })
           } else { // 编辑
-            getDictByField1Mock(params).then((res)=>{
+            getTableList(params).then((res)=>{
               if(res.code==0){
                 this.$message.success(res.message)
                 this.submitLoading = false;
@@ -431,7 +449,7 @@ export default {
       });
     },
     getDictByField1Mock(rid) {
-      getDictByField1Mock({rid}).then((res)=>{
+      getTableList({rid}).then((res)=>{
         if(res.code==0){
           this.$message.success(res.message)
           this.$refs.table.getTableData()

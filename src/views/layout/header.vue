@@ -2,44 +2,15 @@
   <div class="main-header">
     <span>LOGO</span>
     <div class="user-box">
-      <el-avatar :src="circleUrl" />
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ userName }}
-          <el-icon class="el-icon--right">
-            <arrow-down />
-          </el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="outLogin">退出登录</el-dropdown-item>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item disabled>Action 4</el-dropdown-item>
-            <el-dropdown-item divided>Action 5</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <LangSelect />
+      <UserSelect />
     </div>
   </div>
 </template>
 <script setup>
+import UserSelect from './components/UserSelect.vue'
+import LangSelect from './components/LangSelect.vue'
 
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import { removeToken } from '@/utils/auth.js'
-const router = useRouter() 
-const store = useStore()
-const userName = ref(store.getters.name)
-const circleUrl = ref(store.getters.avatar)
-
-const outLogin = async() => {
-  // removeToken()
-  await store.dispatch('user/logout')
-  router.push({name: 'login'})
-}
 </script>
 
 <style lang="scss" scoped>
@@ -60,11 +31,6 @@ const outLogin = async() => {
     height: 40px;
     display: flex;
     align-items: center;
-    span {
-      margin-left: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
   }
 }
 </style>

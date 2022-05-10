@@ -1,5 +1,5 @@
 export default {
-  code: '0',
+  code: 0,
   message: 'success',
   data: {}
 }

@@ -13,7 +13,6 @@
   </div>
 </template>
 <script setup>
-  import { queryKnowledge } from '@/api/index.js'
   import dateHeader from './components/dateHeader.vue'
   import simpleMap from './components/simpleMap.vue'
 

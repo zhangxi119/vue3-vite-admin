@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 import Cookies from 'js-cookie'
 import enLocale from './en'
 import zhLocale from './zh'
-
+import { getCurrentInstance }  from 'vue'
 const messages = {
   en: {
     ...enLocale,
@@ -33,5 +33,17 @@ const i18n = createI18n({
   // set locale messages
   messages
 })
+
+export function generateTitle(title) {
+  const { ctx } = getCurrentInstance()
+  const hasKey = ctx.$te('route.' + title)
+  if (hasKey) {
+    // $t :this method from vue-i18n, inject in @/lang/index.js
+    const translatedTitle = ctx.$t('route.' + title)
+
+    return translatedTitle
+  }
+  return title
+}
 
 export default i18n

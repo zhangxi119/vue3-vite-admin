@@ -139,6 +139,11 @@ function checkCode(response) {
   }
   if (response.data && response.data.code !== API_CODE_OK) {
     // console.log(response.data.msg);
+    ElMessage({
+      showClose: true,
+      message: response.msg || response.message || '后台服务错误,请联系管理员',
+      type: 'error',
+    })
   }
   return response;
 }

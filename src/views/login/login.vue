@@ -67,11 +67,6 @@ const submitForm = async (formEl) => {
         password: form.password
       }
       store.dispatch('user/login', params).then(res => {
-        ElMessage({
-          showClose: true,
-          message: '登录成功',
-          type: 'success',
-        })
         router.push({path: redirect || '/', query: otherQuery})
         loading = false
       }).catch((err) => {

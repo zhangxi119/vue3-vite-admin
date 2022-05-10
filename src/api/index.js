@@ -1,33 +1,14 @@
 import request from '@/utils/request';
 const baseUrl = '/audit'
 
-// 获取报表页面地址信息
-export const getBaseTableUrl = params => {
-  return request.post(`${baseUrl}/mead/dimQuery/queryDimInfo`, {
-      ...params,
-  });
-}
-// 
-export const queryKnowledge = params => {
-  return request.post(`/api/getUsers`, params);
+
+// 获取table表数据\新增\删除
+export const getTableList = params => {
+  return request.post(`/mock/table/list`, params);
 };
-export const getDictByField1Mock = params => {
-  return request.post(`/api/getUsers`, {
-    ...params,
-  })
-}
+// 获取筛选条件下拉数据
 export const getSelectList = params => {
-  return request.post(`/api/selectList`, {
-    ...params,
-  })
-}
-export const getUserInfo = params => {
-  return request.post(`/api/userInfo`, {
-    ...params,
-  })
-}
-export const getUserInfoTest = params => {
-  return request.post(`/vue-element-admin/user/login`, {
+  return request.post(`/mock/dict/list`, {
     ...params,
   })
 }
