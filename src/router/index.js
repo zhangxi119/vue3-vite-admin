@@ -8,11 +8,28 @@ import ScreenLayout from '@/views/layout/screenLayout.vue'
 
 // 固定路由
 export const constantRoutes = [
+  // {
+  //   path: '/',
+  //   redirect: '/index',
+  //   meta: {},
+  //   hidden: true,
+  // },
   {
     path: '/',
-    redirect: '/index',
-    meta: {},
+    component: Layout,
+    redirect: '/dashboard',
     hidden: true,
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        meta: {
+          title: 'dashboard',
+          affix: true
+        },
+        component: () => import('@/views/dashboard/index.vue')
+      }
+    ]
   },
   {
     path: '/login',
@@ -41,6 +58,22 @@ export const constantRoutes = [
     component: ScreenLayout,
     children: [...fullScreen]
   },
+  {
+    path: '/guide',
+    // redirect: '/guide/index',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/guide/index',
+        name: 'guide',
+        meta: {
+          title: 'guide'
+        },
+        component: () => import('@/views/guide/index.vue')
+      }
+    ]
+  },
 ]
 // 异步动态路由
 export const asyncRoutes = [
@@ -63,17 +96,17 @@ export const asyncRoutes = [
           title: 'adminTest',
           roles: ['admin']
         },
-        children: [
-          {
-            path: '/testPath',
-            name: 'testPath',
-            component: () => import('@/views/permissionPage/editorTest.vue'),
-            meta: {
-              title: '嵌套路由测试',
-              roles: ['editor']
-            }
-          }
-        ]
+        // children: [
+        //   {
+        //     path: '/testPath',
+        //     name: 'testPath',
+        //     component: () => import('@/views/permissionPage/editorTest.vue'),
+        //     meta: {
+        //       title: '嵌套路由测试',
+        //       roles: ['editor']
+        //     }
+        //   }
+        // ]
       },
       {
         path: '/editorTest',

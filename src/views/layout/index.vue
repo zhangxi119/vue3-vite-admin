@@ -24,11 +24,8 @@
         </el-aside>
         <el-main class="el-main">
           <div class="breadcrumb">
-            <!-- <el-breadcrumb :separator-icon="ArrowRight">
-              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item v-for="item in breadList" :key="item.path" :to="{ path: item.path}">{{item.meta.title}}</el-breadcrumb-item>
-            </el-breadcrumb> -->
             <Breadcrumb />
+            <TagsView />
           </div>
           <div class="main-container">
             <router-view v-slot="{ Component }">
@@ -44,40 +41,28 @@
   </div>
 </template>
 <script>
-  import { defineComponent, reactive, ref, toRefs, watch, onMounted, computed } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import { useStore } from 'vuex'
   import { ArrowRight } from '@element-plus/icons-vue'
   import sliderMenu from './sliderMenu.vue'
-  import { useRouter, useRoute } from 'vue-router' 
   import headerCom from './header.vue'
   import Breadcrumb from './components/Breadcrumb.vue'
+  import TagsView from './components/TagsView/index.vue'
   export default defineComponent({
     props: {
       msg: String
     },
-    components: { sliderMenu, headerCom, Breadcrumb },
+    components: { sliderMenu, headerCom, Breadcrumb, TagsView },
     setup(props) {
-      const router = useRouter()
       const store = useStore()
       // 获取动态路由
       const menuList = computed(() => store.getters.permission_routes)
-      const route = useRoute()
-      const state = reactive({
-        breadList: []
-      })
-      onMounted(() => {
-        state.breadList = route.matched
-      })
-      watch(() => route.matched, (newVal, oldVal) => {
-        state.breadList = newVal
-      })
       const menuSelect = (index, indexPath) => {
       }
       return {
         ArrowRight,
         menuList,
         menuSelect,
-        ...toRefs(state)
       }
     }
   })
@@ -100,9 +85,10 @@
     display: flex;
     flex-direction: column;
     .breadcrumb {
-      height: 50px;
+      // height: 50px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      // align-items: center;
     }
     .main-container {
       flex: 1;

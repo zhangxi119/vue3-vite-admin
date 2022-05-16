@@ -36,8 +36,8 @@ let redirect = ref(undefined)
 // 重定向参数
 let otherQuery = ref({})
 const form = reactive({
-  user: '',
-  password: '',
+  user: 'admin',
+  password: '123',
 })
 const rules = reactive({
   user: [

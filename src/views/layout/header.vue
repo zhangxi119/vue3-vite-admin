@@ -2,8 +2,8 @@
   <div class="main-header">
     <span>LOGO</span>
     <div class="user-box">
-      <LangSelect />
-      <UserSelect />
+      <LangSelect id="lang-container" />
+      <UserSelect id="user-container" />
     </div>
   </div>
 </template>

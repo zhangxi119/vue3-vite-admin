@@ -6,6 +6,8 @@ export default {
     sportAuthRouter: '动态权限路由',
     editorTest: '普通权限测试页',
     adminTest: '管理页权限测试页',
+    guide: '引导页',
+    dashboard: '首页',
   },
   navbar: {
     dashboard: '首页',

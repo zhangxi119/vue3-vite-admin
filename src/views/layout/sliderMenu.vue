@@ -8,17 +8,17 @@
       <div v-if="!item.hidden">
         <el-sub-menu :index="item.path" v-if="item.children">
           <template #title>
-            <i :class="item.meta.icon || ''"></i>
-            <span>{{ generateTitle(item.meta.title) }}</span>
+            <i :class="item?.meta?.icon || ''"></i>
+            <span>{{ generateTitle(item?.meta?.title) }}</span>
           </template>
           <sliderMenu :tree="item.children"></sliderMenu>
         </el-sub-menu>
 
         <el-menu-item :index="item.path" v-if="!item.children">
-          <i :class="item.meta.icon || ''"></i>
+          <i :class="item?.meta.icon || ''"></i>
           <template #title>
             <span>
-              {{ generateTitle(item.meta.title) }}
+              {{ generateTitle(item?.meta?.title) }}
             </span>
           </template>
         </el-menu-item>

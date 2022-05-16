@@ -6,6 +6,8 @@ export default {
     sportAuthRouter: 'sportAuthRouter',
     editorTest: 'editorTest',
     adminTest: 'adminTest',
+    guide: 'guide',
+    dashboard: 'dashboard',
   },
   navbar: {
     dashboard: 'Dashboard',
