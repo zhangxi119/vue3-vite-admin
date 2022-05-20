@@ -27,7 +27,7 @@
         </div>
       </template>
     </CommonTable>
-    <el-dialog v-model='visible' width='65%' :title="editTitle" @close='visible = false' :close-on-click-modal="false">
+    <el-dialog :visible='visible' width='65%' :title="editTitle" @close='visible = false' :close-on-click-modal="false">
       <div>
         <el-form ref="dialogForm" :rules='formDataRule' :model='formData' label-width='140px' style='padding: 20px 40px 20px 0'>
           <el-row>
@@ -104,7 +104,7 @@
         </el-form>
         <div style='text-align: right'>
           <el-button @click='visible = false'>取 消</el-button>
-          <el-button  @click='submitForm(dialogForm)' type='primary' :loading="submitLoading">确 定</el-button>
+          <el-button  @click='submitForm("dialogForm")' type='primary' :loading="submitLoading">确 定</el-button>
         </div>
       </div>
     </el-dialog>
@@ -112,25 +112,42 @@
 </template>
 
 <script>
-import CommonTable from '@/components/CommonTable/index.vue';
+import CommonTable from '@/components/CommonTable/index2.vue';
 import TabsForm from '@/components/TabsForm/index.vue';
 import { getTableList, getSelectList } from '@/api/index.js';
-
-import { defineComponent ,reactive, onMounted, ref, computed, watch, nextTick, toRefs  } from 'vue'
-
-export default defineComponent({
+export default {
   name: 'Disease',
-  components: { CommonTable, TabsForm },
-  setup(props) {
-    const state = reactive({
-      MOCK_LIST: [],
+  components: {
+    CommonTable,
+    TabsForm
+  },
+  data() {
+    const _this = this
+    //报表状态
+    const MOCK_LIST = []
+    // const { data } = await getSelectList({})
+    // data.list.forEach(item => {
+    //   MOCK_LIST.push({
+    //     label: item.codeName,
+    //     value: item.code
+    //   })
+    // })
+    // console.log(MOCK_LIST, '-------------mock_list');
+    // getSelectList({field: 'MOCK_LIST'}).then(res => {
+    //   console.log(res, '--------------------------------select')
+    //   res.data.list.forEach(item => {
+    //     MOCK_LIST.push({
+    //       label: item.codeName,
+    //       value: item.code
+    //     })
+    //   })
+    // })
+    return {
+      MOCK_LIST,
       templateList: [],
       queryParams: {},
       tableConfig: {
         api: getTableList,
-        // tableAttrs: {
-        //   'onRow-click': () => {console.log('table click 触发');}
-        // },
         columns: [
           {
             prop: 'param_01',
@@ -213,7 +230,6 @@ export default defineComponent({
                 clearable: true,
                 options: [],
                 placeholder: '请选择区划',
-                onclick: () => {console.log('click事件触发');}
               },
             },
             {
@@ -312,11 +328,20 @@ export default defineComponent({
           {required: true , message: '请选择'}
         ],
       },
-    })
-    const dialogForm = ref()
-    const table = ref()
+    };
+  },
+  computed: {},
+  created() {
+    this.height = window.innerHeight * 0.7
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    this.initSelect()
+  },
+  mounted() {
 
-    const initSelect = async () => {
+  },
+  methods: {
+    // 初始化下拉数据
+    async initSelect() {
       const { data } = await getSelectList({})
       const list = data.list.map(item => {
         return {
@@ -324,33 +349,37 @@ export default defineComponent({
           value: item.code
         }
       })
-      state.tableConfig.formConfig.schema.forEach(item => {
+      this.tableConfig.formConfig.schema.forEach(item => {
         if (item.component === 'Select') {
           item.componentProps.options = list
         }
       });
-    }
-
-    function addNew() {
-      state.visible = true
-      state.editTitle = '新增'
-      for( let key in state.formData) {
-        state.formData[key] = ''
+    },
+    // 添加报表
+    addNew() {
+      this.visible = true
+      this.editTitle = '新增'
+      for( let key in this.formData) {
+        this.formData[key] = ''
       }
-      nextTick(() => {
-        dialogForm.value.clearValidate()
+      this.$nextTick(() => {
+        this.$refs.dialogForm.clearValidate()
       })
-    }
-
-    function edit(item) {
-      state.editTitle = '编辑';
-      state.visible = true;
-      for( let key in state.formData) {
-        state.formData[key] = item[key]
+    },
+    // 编辑
+    edit(item) {
+      this.editTitle = '编辑';
+      this.visible = true;
+      for( let key in this.formData) {
+        this.formData[key] = item[key]
       }
-    }
 
-    function del(item) {
+      // this.$nextTick(()=>{
+      //   this.$refs.form.clearValidate()
+      // })
+    },
+    // 删除
+    del(item) {
       ElMessageBox.confirm(
         '是否删除该条报表?',
         '提示',
@@ -360,45 +389,56 @@ export default defineComponent({
           type: 'warning',
         }
       )
-      .then(() => {
-        getTableList(item.rid)
-      })
-      .catch(() => {})
-    }
+        .then(() => {
+          this.getTableList(item.rid)
+        })
+        .catch(() => {})
+      // this.$confirm('是否删除该条报表?', '提示', {
+      //     confirmButtonText: '确 定',
+      //     cancelButtonText: '取 消',
+      //     type: 'warning',}
+      //   })
+      //   .then(() => {
+      //     this.getDictByField1Mock(item.rid)
+      //   })
+      //   .catch(() => {
+      //   });
+    },
 
-    function showSqlDetail(item) {
-      state.sqlVisible = true;
-      state.sqlDetail = item.rptQurySql;
-    }
-
-    function submitForm(formName) {
-      formName.validate(valid => {
+    // 显示sql详情
+    showSqlDetail(item) {
+      console.log(item)
+      this.sqlVisible = true;
+      this.sqlDetail = item.rptQurySql;
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
         if (valid) {
-          state.submitLoading = true;
-          const params = Object.assign(state.formData)
+          this.submitLoading = true;
+          const params = Object.assign(this.formData)
           // 新增
-          if (state.editTitle == '新增') {
+          if (this.editTitle == '新增') {
             getTableList(params).then((res)=>{
               if(res.code==0){
-                ElMessage.success(res.message)
-                state.submitLoading = false;
-                state.visible = false
-                table.getTableData()
+                this.$message.success(res.message)
+                this.submitLoading = false;
+                this.visible = false
+                this.$refs.table.getTableData()
               } else {
-                state.submitLoading = false;
-                ElMessage.warning(res.message)
+                this.submitLoading = false;
+                this.$message.warning(res.message)
               }
             })
           } else { // 编辑
             getTableList(params).then((res)=>{
               if(res.code==0){
-                ElMessage.success(res.message)
-                state.submitLoading = false;
-                state.visible = false
-                table.getTableData()
+                this.$message.success(res.message)
+                this.submitLoading = false;
+                this.visible = false
+                this.$refs.table.getTableData()
               } else {
-                state.submitLoading = false;
-                ElMessage.warning(res.message)
+                this.submitLoading = false;
+                this.$message.warning(res.message)
               }
             })
           }
@@ -407,41 +447,24 @@ export default defineComponent({
         }
 
       });
-    }
-
-    function getDictByField1Mock(rid) {
+    },
+    getDictByField1Mock(rid) {
       getTableList({rid}).then((res)=>{
         if(res.code==0){
-          ElMessage.success(res.message)
-          table.getTableData()
+          this.$message.success(res.message)
+          this.$refs.table.getTableData()
         } else {
-          ElMessage.warning(res.message)
+          this.$message.warning(res.message)
         }
       })
     }
-
-    // 初始化运行
-    // console.log($refs, '----------$refs');
-    const userInfo = reactive(JSON.parse(sessionStorage.getItem('userInfo')))
-    initSelect()
-    
-    return {
-      dialogForm,
-      table,
-      // 函数
-      initSelect,
-      addNew,
-      edit,
-      del,
-      showSqlDetail,
-      submitForm,
-      getDictByField1Mock,
-
-      ...toRefs(state)
-    }
-  }
-})
-
-
-
+  },
+};
 </script>
+
+<style lang="scss">
+@import '@/style/commonTable.scss';
+.dashboard-main{
+  height: 100%;
+}
+</style>

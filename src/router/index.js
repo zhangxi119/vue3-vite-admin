@@ -43,6 +43,7 @@ export const constantRoutes = [
   {
     path: '/index',
     name: 'index',
+    redirect: '/checkTask',
     meta: {
       title: 'component'
     },

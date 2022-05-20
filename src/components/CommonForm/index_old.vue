@@ -1,5 +1,6 @@
 <template>
   <div class="common-form">
+    <!-- v-on="formEvents" -->
     <el-form
       v-if="createForm"
       ref="commonFormRef"
@@ -31,11 +32,13 @@
                 :formInline="formInline"
 
               ></slot>
+              <!-- v-on="formItem.componentEvents" -->
               <component
                 :is="formItem.component"
                 v-else
                 v-model:selectValue="formInline[formItem.field]"
                 v-bind="formItem.componentProps"
+                
               ></component>
             </el-form-item>
           </el-col>
@@ -70,13 +73,23 @@
     </el-form>
   </div>
 </template>
-<script>
-import Select from '../CommonTable/CommonSelect.vue';
-import { reactive, ref, onMounted, onUnmounted, computed, nextTick, watch, defineComponent, toRefs } from 'vue'
 
-export default defineComponent({
+<script>
+// eslint-disable-next-line import/no-extraneous-dependencies
+// import 'element-plus/es/components/input/style/css'
+// import 'element-plus/es/components/cascader/style/css'
+// import 'element-plus/es/components/date-picker/style/css'
+// import { Input, Cascader, DatePicker } from 'element-plus';
+import Select from '../CommonTable/CommonSelect.vue';
+
+export default {
   name: 'CommonForm',
-  components: { Select },
+  components: {
+    // Input,
+    // Cascader,
+    // DatePicker,
+    Select
+  },
   props: {
     formConfig: {
       type: Object,
@@ -93,10 +106,8 @@ export default defineComponent({
       },
     },
   },
-  
-  setup(props, { emit }) {
-    
-    const state = reactive({
+  data() {
+    return {
       formInline: {},
       // el-col当前所占的比例
       currentSpan: 7,
@@ -111,235 +122,220 @@ export default defineComponent({
       specialSpan: 0,
       createForm: false,
       timer: null
-    })
-    const commonFormRef = ref()
-
-    // 计算属性
-    const schemaLength = computed(() => props.formConfig.schema.length)
-
-    const isFlex = computed(() => true)
-
-    const formAttrs = computed(() => props.formConfig.formAttrs || {})
-
-    const formEvents = computed(() => props.formConfig.formEvents || {})
-
-    const showComponent = computed(() => {
-      if (state.currentWidthType === 3) {
-        return schemaLength >= 8;
-      }
-      if (state.currentWidthType === 2) {
-        return schemaLength > 5;
-      }
-      if (state.currentWidthType === 1) {
-        return schemaLength > 3;
-      }
-    })
-
-    const showNextLine = computed(() => {
-      if (state.currentWidthType === 3) {
-        return schemaLength % 8 === 0
-      }
-      if (state.currentWidthType === 2) {
-        return schemaLength % 3 === 0
-      }
-      if (state.currentWidthType === 1) {
-        return schemaLength % 2 === 0
-      }
-    })
-
-    // 函数
-    function showIndex(index){
-      if(state.currentWidthType === 3) {
-        return index >= 7 ? !state.isPackUp : true
-      }
-      if(state.currentWidthType === 2) {
-        return index >= 5 ? !state.isPackUp : true
-      }
-      if(state.currentWidthType === 1) {
-        return index >= 3 ? !state.isPackUp : true
+    };
+  },
+  watch:{
+    formInline: {
+      deep:true,
+      handler(val){
+        // let targetKeys = this.formConfig.formAttrs.requiredKeys
+        // targetKeys.forEach(key => {
+        //   if(val[key]) {
+        //     this.$refs.commonFormRef.clearValidate(key)
+        //   } else {
+        //     this.$refs.commonFormRef.validateField(key)
+        //   }
+        // })
       }
     }
-    
-    function setSpan() {
-      state.createForm = false
+  },
+  computed: {
+    schemaLength() {
+      return this.formConfig.schema.length;
+    },
+    isFlex() {
+      return true;
+    },
+    formAttrs() {
+      return this.formConfig.formAttrs || {};
+    },
+    // vue3.0已经废弃v-on: $listener 这种形式的事件挂在，直接将事件放到formAttrs中
+    formEvents() {
+      return this.formConfig.formEvents || {};
+    },
+    showComponent() {
+      if (this.currentWidthType === 3) {
+        return this.schemaLength >= 8;
+      }
+      if (this.currentWidthType === 2) {
+        return this.schemaLength > 5;
+      }
+      if (this.currentWidthType === 1) {
+        return this.schemaLength > 3;
+      }
+    },
+    showNextLine() {
+      if (this.currentWidthType === 3) {
+        return this.schemaLength % 8 === 0
+      }
+      if (this.currentWidthType === 2) {
+        return this.schemaLength % 3 === 0
+      }
+      if (this.currentWidthType === 1) {
+        return this.schemaLength % 2 === 0
+      }
+    }
+  },
+  created() {},
+  mounted() {
+    this.setSpan();
+    this.func = () => {
+      this.$nextTick(() => {
+        this.setSpan()
+      })
+    }
+    // 将form派发出去,方便使用refs调用form的方法
+    this.$emit('common-form', this.$refs.commonFormRef);
+    window.addEventListener('resize',this.func);
+    const _this = this
+    this.keydownFunc = function({key}) {
+      _this.timer && clearTimeout(_this.timer)
+      _this.timer = setTimeout(() => {
+        const values = Object.values(_this.formInline).filter(el => !!el)
+        if(key === 'Enter' && !!values.length) {
+          _this.onSubmit()
+        }
+      },200)
+    }
+    window.addEventListener('keydown', this.keydownFunc)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.func);
+    window.removeEventListener('keydown', this.keydownFunc)
+    this.timer && clearTimeout(this.timer)
+    this.timer = null
+  },
+  methods: {
+    showIndex(index){
+      if(this.currentWidthType === 3) {
+        return index >= 7 ? !this.isPackUp : true
+      }
+      if(this.currentWidthType === 2) {
+        return index >= 5 ? !this.isPackUp : true
+      }
+      if(this.currentWidthType === 1) {
+        return index >= 3 ? !this.isPackUp : true
+      }
+    },
+    setSpan() {
+      this.createForm = false
       // 获取当前的form的宽度
       const dom = document.querySelector('.common-form');
       if(!dom) return
       const formWidth = dom.offsetWidth;
       // console.log(formWidth,'formWidth');
-      state.specialSpan = 0
+      this.specialSpan = 0
       if (formWidth > 1200) {
         // console.log('3333333', formWidth, this.schemaLength);
-        state.currentWidthType = 3;
-        if (schemaLength >= 3) {
-          state.currentSpan = 6;
-          if (schemaLength > 3) {
-            state.isShowPackBtn = true;
+        this.currentWidthType = 3;
+        if (this.schemaLength >= 3) {
+          this.currentSpan = 6;
+          if (this.schemaLength > 3) {
+            this.isShowPackBtn = true;
           } else {
-            state.isShowPackBtn = false;
+            this.isShowPackBtn = false;
           }
         } else {
-          state.isShowPackBtn = false;
-          if (schemaLength === 1) {
-            state.currentSpan = 12;
-            state.specialSpan = 12
-          } else if (schemaLength === 2) {
-            state.currentSpan = 10;
-            state.specialSpan = 4
+          this.isShowPackBtn = false;
+          if (this.schemaLength === 1) {
+            this.currentSpan = 12;
+            this.specialSpan = 12
+          } else if (this.schemaLength === 2) {
+            this.currentSpan = 10;
+            this.specialSpan = 4
           }
         }
       }
       if (formWidth > 992 && formWidth <= 1200) {
-        console.log('222222', formWidth, schemaLength);
-        state.currentWidthType = 2;
-        if (schemaLength >= 6) {
-          state.currentSpan = 8;
-          state.isShowPackBtn = true;
+        console.log('222222', formWidth, this.schemaLength);
+        this.currentWidthType = 2;
+        if (this.schemaLength >= 6) {
+          this.currentSpan = 8;
+          this.isShowPackBtn = true;
         } else {
-          state.isNextLine = false;
-          state.isShowPackBtn = false;
-          if (schemaLength === 1) {
-            state.currentSpan = 12;
-          } else if (schemaLength === 2) {
-            state.currentSpan = 8;
-          } else if (schemaLength === 3) {
-            state.currentSpan = 8;
-            state.specialSpan = 24
-          } else if (schemaLength === 4 || schemaLength === 5) {
-            state.currentSpan = 8;
+          this.isNextLine = false;
+          this.isShowPackBtn = false;
+          if (this.schemaLength === 1) {
+            this.currentSpan = 12;
+          } else if (this.schemaLength === 2) {
+            this.currentSpan = 8;
+          } else if (this.schemaLength === 3) {
+            this.currentSpan = 8;
+            this.specialSpan = 24
+          } else if (this.schemaLength === 4 || this.schemaLength === 5) {
+            this.currentSpan = 8;
           }
         }
       }
       if (formWidth <= 992) {
-        state.currentWidthType = 1;
+        this.currentWidthType = 1;
         // console.log('11111111', formWidth, this.schemaLength);
-        if (schemaLength > 2) {
-          state.currentSpan = 12;
-          state.isShowPackBtn = true;
+        if (this.schemaLength > 2) {
+          this.currentSpan = 12;
+          this.isShowPackBtn = true;
         } else {
-          state.isNextLine = false;
-          state.isShowPackBtn = false;
-          if (schemaLength === 1) {
-            state.currentSpan = 14;
-            state.specialSpan = 10
+          this.isNextLine = false;
+          this.isShowPackBtn = false;
+          if (this.schemaLength === 1) {
+            this.currentSpan = 14;
+            this.specialSpan = 10
           } else if (this.schemaLength === 2) {
-            state.currentSpan = 12;
-            state.specialSpan = 24
+            this.currentSpan = 12;
+            this.specialSpan = 24
           }
         }
       }
       // console.log(this.currentSpan,this.specialSpan, 'this.currentSpan');
-      state.createForm = true
-    }
-
-    function toggleNextLine() {
-      if (state.currentWidthType === 3) {
-        state.currentSpan = 6;
-        if(schemaLength % 4 === 2 ) {
-          state.specialSpan = 12
+      this.createForm = true
+    },
+    toggleNextLine() {
+      if (this.currentWidthType === 3) {
+        this.currentSpan = 6;
+        if(this.schemaLength % 4 === 2 ) {
+          this.specialSpan = 12
         }
       }
-      state.isNextLine = true;
-      state.isPackUp = false;
-      emit('refresh-height')
-    }
-
-    function hideNextLine() {
-      if (state.currentWidthType === 3) {
-        state.currentSpan = 6;
-        if(schemaLength % 4 === 2 ) {
-          state.specialSpan = 0
+      this.isNextLine = true;
+      this.isPackUp = false;
+      this.$emit('refresh-height')
+    },
+    hideNextLine() {
+      if (this.currentWidthType === 3) {
+        this.currentSpan = 6;
+        if(this.schemaLength % 4 === 2 ) {
+          this.specialSpan = 0
         }
       }
-      state.isNextLine = false;
-      state.isPackUp = true;
-      emit('refresh-height')
-    }
-
-    function onReset() {
-      state.formInline = {};
-      commonFormRef.value.resetFields();
-      emit('reset-form');
-    }
-
-    function onSubmit() {
-      commonFormRef.value.validate((valid) => {
+      this.isNextLine = false;
+      this.isPackUp = true;
+      this.$emit('refresh-height')
+    },
+    onReset() {
+      this.formInline = {};
+      this.$refs['commonFormRef'].resetFields();
+      this.$emit('reset-form');
+    },
+    onSubmit() {
+      this.$refs['commonFormRef'].validate((valid) => {
         if (valid) {
-          let params = JSON.parse(JSON.stringify(state.formInline));
+          let params = JSON.parse(JSON.stringify(this.formInline));
           params = {
             ...params,
-            ...props.formbind
+            ...this.formbind
           }
-          if (props.formConfig.beforeSubmit) {
-            params = props.formConfig.beforeSubmit(params);
+          if (this.formConfig.beforeSubmit) {
+            params = this.formConfig.beforeSubmit(params);
           }
           console.log(params,'------params');
-          emit('submit-form', params);
+          this.$emit('submit-form', params);
         } else {
           console.log('error submit!!');
           return false;
         }
       });
-    }
-
-    let timer = reactive()
-    const func = () => {
-      nextTick(() => {
-        setSpan()
-      })
-    }
-    const keydownFunc = ({key}) => {
-      timer && clearTimeout(timer)
-      timer = setTimeout(() => {
-        const values = Object.values(state.formInline).filter(el => !!el)
-        if(key === 'Enter' && !!values.length) {
-          onSubmit()
-        }
-      },200)
-    }  
-
-    onMounted(() => {
-      setSpan();
-      // 将form派发出去,方便使用refs调用form的方法
-      emit('common-form', commonFormRef.value);
-      window.addEventListener('resize',func);
-      window.addEventListener('keydown', keydownFunc)
-    }),
-
-    onUnmounted(() => {
-      window.removeEventListener('resize', func);
-      window.removeEventListener('keydown', keydownFunc)
-      timer && clearTimeout(timer)
-      timer = null
-    })
-
-    return {
-      // 计算属性
-      schemaLength,
-      isFlex,
-      formAttrs,
-      formEvents,
-      showComponent,
-      showNextLine,
-      // 函数
-      showIndex,
-      setSpan,
-      toggleNextLine,
-      hideNextLine,
-      onReset,
-      onSubmit,
-      func,
-      keydownFunc,
-
-      commonFormRef,
-
-      ...toRefs(state)
-    }
-  }
-})
-
-
-
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

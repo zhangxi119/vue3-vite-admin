@@ -37,7 +37,6 @@
         <div class="table-change">
           <slot name="tableChange"></slot>
         </div>
-        <!-- v-on="tableEvents" -->
         <el-table
           ref="tableRef"
           v-loading="isLoading"
@@ -45,6 +44,7 @@
           :data="tableData"
           :height="tableHeight"
           v-bind="tableAttrs"
+          v-on="tableEvents"
           :row-key="rowKey"
           @selection-change="handleSelectionChange"
           @header-dragend="headerDragend"
@@ -109,7 +109,7 @@
           >
             <span
               v-show="tableData.length"
-              :style="{ left: showAllLeft + 'px' }"
+              :style="{ left: this.showAllLeft + 'px' }"
               class="show-page-num"
               >显示{{ startPage }}-{{ endPage }}条</span
             >
@@ -132,16 +132,27 @@
 </template>
 
 <script>
+import CommonSelect from './CommonSelect.vue';
 import CommonForm from '../CommonForm/index.vue';
 import { API_CODE_OK } from '../../constants/AppConstants';
 import nosearch from '@/assets/tableicon/default_pic_nosearch.svg'
 import emptImg from '@/assets/tableicon/default_pic_kong.svg'
-
-import { defineComponent, reactive, toRefs, computed, ref, nextTick, watch, onMounted } from 'vue'
-
-export default defineComponent({
-  name: 'CommonTable',
-
+export default {
+  name: 'CommonTable_old',
+  components: {
+    CommonForm,
+  },
+  // vue3.0已移除filters
+  // filters: {
+  //   formatFilter(val, list) {
+  //     if (val == null) return '-';
+  //     if (!list) {
+  //       return val;
+  //     }
+  //     const result = list.find(el => el.value == val);
+  //     return result ? result.label : val;
+  //   },
+  // },
   props: {
     customSearch: {
       type: Boolean,
@@ -197,12 +208,14 @@ export default defineComponent({
         return {};
       },
     },
-    formbind: {
+      formbind: {
       type: Object,
       default() {
         return {};
       },
     },
+
+
     // 外部传进来的参数，是否重置表单区域
     isResetForm: {
       type: Boolean,
@@ -229,11 +242,8 @@ export default defineComponent({
       default: true,
     },
   },
-  components: {
-    CommonForm
-  },
-  setup(props, { emit }) {
-    const state = reactive({
+  data() {
+    return {
       tableData: [],
       selectList:[],
       pageParams: {
@@ -249,304 +259,272 @@ export default defineComponent({
       hasSearch: false,
       nosearch,
       emptImg
-    })
-
-    // refs 属性定义
-    const tableRef = ref()
-    const CommonFormRef = ref()
-    // const setTableRef = el => {
-    //   tableRef.value = el
-    // }
-    
-    // --------------计算属性--------------- //
-    const mustSub = computed(() => {
+    };
+  },
+  computed: {
+    mustSub(){
       // 得到了总页数
-      const page = Math.ceil(state.total / state.pageParams.pageSize)
+      const page = Math.ceil(this.total / this.pageParams.pageSize)
       console.log(page,'page');
-      const isLastPage = page === state.pageParams.pageNo && page !== 1
+      const isLastPage = page === this.pageParams.pageNo && page !== 1
       console.log(isLastPage,'isLastPage');
-      if(isLastPage && state.tableData.length === 1) {
+      if(isLastPage && this.tableData.length === 1) {
         return true
       }
         return false
-    });
+    },
+    tableAttrs() {
+      return this.tableConfig.tableAttrs || {};
+    },
+    tableEvents() {
+      return this.tableConfig.tableEvents || {};
+    },
+    columns() {
+      return this.tableConfig.columns || {};
+    },
+    hasForm() {
+      return !!this.tableConfig.hasForm;
+    },
+    hasFormAndTab() {
+      return !!this.tableConfig.hasFormAndTab;
+    },
+    hasTopNav() {
+      // 是否含有导航（改变页面主体高度）
+      return !!this.tableConfig.hasTopNav;
+    },
+    formConfig() {
+      return this.tableConfig.formConfig || {};
+    },
+    formAttrs() {
+      return (
+        (this.tableConfig.formConfig &&
+          this.tableConfig.formConfig.formAttrs) ||
+        {}
+      );
+    },
+    formEvents() {
+      return (
+        (this.tableConfig.formConfig &&
+          this.tableConfig.formConfig.formEvents) ||
+        {}
+      );
+    },
+    schema() {
+      return (
+        (this.tableConfig.formConfig && this.tableConfig.formConfig.schema) ||
+        []
+      );
+    },
+    hasIndex() {
+      return (this.tableConfig && this.tableConfig.hasIndex) || false;
+    },
+    hasSelection() {
+      return (this.tableConfig && this.tableConfig.hasSelection) || false;
+    },
+    startPage() {
+      return (this.pageParams.pageNo - 1) * this.pageParams.pageSize + 1;
+    },
+    endPage() {
+      return this.tableData.length < this.pageParams.pageSize
+        ? this.startPage + this.tableData.length - 1
+        : this.startPage + this.pageParams.pageSize - 1;
+    },
+    rowKey() {
+      return this.tableConfig.selecttionRowKey || ''; // 跨页多选需要穿row-key作标识
+    }
 
-    const tableAttrs = computed(() => props.tableConfig.tableAttrs || {});
+  },
+  watch: {
+    // 外部切换，不一定需要重置表单区域的筛选条件
+    queryParams: {
+      deep: true,
+      handler(newParams) {
+        if (this.isResetForm) {
+          this.onReset();
 
-    // vue3.0已经废弃v-on: $listener 这种形式的事件挂在，直接将事件放到tableAttrs中
-    const tableEvents = computed(() => props.tableConfig.tableEvents || {});
+        } else {
+          this.resetTable();
+        }
+      },
+    },
 
-    const columns = computed(() => props.tableConfig.columns || {});
-
-    const hasForm = computed(() => !!props.tableConfig.hasForm);
-
-    const hasFormAndTab = computed(() => !!props.tableConfig.hasFormAndTab);
-
-    const hasTopNav = computed(() => !!props.tableConfig.hasTopNav);
-
-    const formConfig = computed(() => props.tableConfig.formConfig || {});
-
-    const formAttrs = computed(() => (
-      (props.tableConfig.formConfig &&
-        props.tableConfig.formConfig.formAttrs) ||
-      {}
-    ));
-
-    const formEvents = computed(() => (
-      (props.tableConfig.formConfig &&
-        props.tableConfig.formConfig.formEvents) ||
-      {}
-    ));
-
-    const schema = computed(() => (
-      (props.tableConfig.formConfig &&
-        props.tableConfig.formConfig.schema) ||
-      {}
-    ));
-
-    const hasIndex = computed(() => (props.tableConfig && props.tableConfig.hasIndex) || false);
-    
-    const hasSelection = computed(() => (props.tableConfig && props.tableConfig.hasSelection) || false);
-
-    const startPage = computed(() => (state.pageParams.pageNo - 1) * state.pageParams.pageSize + 1);
-
-    const endPage = computed(() => {
-      return state.tableData.length < state.pageParams.pageSize
-        ? startPage + state.tableData.length - 1
-        : startPage + state.pageParams.pageSize - 1;
-    });
-
-    const rowKey = computed(() => props.tableConfig.selecttionRowKey || '');
-    // --------------计算属性结束--------------- //
-
-    // --------------函数方法--------------- //
-
-    function formatFilter(val, list) {
+    searchParams: {
+      deep: true,
+      immediate: true,
+      handler(newParams) {
+        const len = Array.from(Object.keys(newParams));
+        if (len.length > 0) {
+          this.hasSearch = true;
+        } else {
+          this.hasSearch = false;
+        }
+      },
+    },
+    tableData(val){
+      this.layout()
+    }
+  },
+  mounted() {
+    // 计算left
+    const pageEl = document.querySelector('.el-pagination__total');
+    this.showAllLeft = pageEl.offsetWidth + 20;
+    // 将表格实例emit出去，方便在外面直接调用表格的方法
+    this.$emit('get-table-ref', this.$refs.tableRef);
+    // 将表单的ref实例，发送到父组件，用以操作表单组件中的方法和值
+    this.$emit('getCommonFormRef', this.$refs.CommonFormRef);
+  },
+  created() {
+    this.isFastRequest && this.getTableData();
+  },
+  methods: {
+    formatFilter(val, list) {
       if (val == null) return '-';
       if (!list) {
         return val;
       }
       const result = list.find(el => el.value == val);
       return result ? result.label : val;
-    }
-
-    function getSubRefresh(){
-      if(mustSub){
-        state.pageParams.pageNo -= 1
+    },
+    // pageSize自动减一 然后请求
+    getSubRefresh(){
+      console.log(this.mustSub, 'mustSub');
+      if(this.mustSub){
+        this.pageParams.pageNo -= 1
       }
-      getTableData()
-    }
-
-    function handleSelectionChange(val){
-       state.selectList = val
+      this.getTableData()
+    },
+    handleSelectionChange(val){
+       this.selectList = val
        // 抛出跨页多选值
-       emit('handleSelectionChange', val);
-    }
-
-    function emitCommmonForm(refs) {
+       this.$emit('handleSelectionChange', val);
+    },
+    emitCommmonForm(refs) {
       // 将表单实例emit出去
-      hasForm && emit('get-form-ref', refs);
-    }
-
-    const getTableHeight = async () => {
-      await nextTick()
+      this.hasForm && this.$emit('get-form-ref', refs);
+    },
+    getTableHeight() {
       const mainEl = document.querySelector('.table-header-main');
       const headerEl = document.querySelector('.table-header');
       const rowEl = document.querySelector('.pagination-row');
-      const tableEl = tableRef.value.$el;
-      state.tableHeight = `${mainEl.offsetHeight - 30 -
+      const tableEl = this.$refs.tableRef.$el;
+      this.tableHeight = `${mainEl.offsetHeight - 30 -
         headerEl.offsetHeight -
         rowEl.offsetHeight}px`;
-      tableEl.style.height = state.tableHeight;
-      tableRef.value.doLayout();
-    }
-
-    function doLayout() {
-      getTableHeight();
-    }
-
-    function layout(){
-      nextTick(()=>{
-        tableRef.value.doLayout()
+      tableEl.style.height = this.tableHeight;
+      this.$refs.tableRef.doLayout();
+    },
+    doLayout() {
+      this.getTableHeight();
+    },
+   layout(){
+      this.$nextTick(()=>{
+        this.$refs.tableRef.doLayout()
       })
-    }
-
-    // 拖动表头后重绘
-    function headerDragend() {
-      tableRef.value.doLayout()
-    }
-
+   },
+   // 拖动表头后重绘
+   headerDragend() {
+     this.$refs.tableRef.doLayout()
+   },
     // 切换size
-    function handleSizeChange(size) {
-      state.pageParams.pageNo = 1;
-      state.pageParams.pageSize = size;
-      getTableData();
-    }
-
-    function handleCurrentChange(num) {
-      state.pageParams.pageNo = num;
-      getTableData();
-    }
-
+    handleSizeChange(size) {
+      this.pageParams.pageNo = 1;
+      this.pageParams.pageSize = size;
+      this.getTableData();
+    },
+    // 切换num
+    handleCurrentChange(num) {
+      this.pageParams.pageNo = num;
+      this.getTableData();
+    },
     // 获取表格数据
-    function getTableData() {
-      if (props.tableConfig.api && typeof props.tableConfig.api === 'function') {
-        state.isLoading = true;
+    getTableData() {
+      if (this.tableConfig.api && typeof this.tableConfig.api === 'function') {
+        this.isLoading = true;
         // console.log(this.searchParams,"this.searchParams")
-        console.log(props.queryParams,"this.queryParams666")
+        console.log(this.queryParams,"this.queryParams666")
         console.log('表格提交的参数是：', {
-          ...state.pageParams,
-          ...props.queryParams,
-          ...state.searchParams,
+          ...this.pageParams,
+          ...this.queryParams,
+          ...this.searchParams,
         });
         const params = {
-          ...state.pageParams,
-          ...props.queryParams,
-          ...state.searchParams,
+          ...this.pageParams,
+          ...this.queryParams,
+          ...this.searchParams,
         }
-        props.tableConfig
+        // if(params.regnCode) {
+        //   console.log(1233333)
+        //   if(params.regnCode.length) {
+        //     console.log(234)
+        //     params.regnCode = params.regnCode[0]
+        //   } else {
+        //     console.log(345)
+        //     params.regnCode = ''
+        //   }
+        // }
+        console.log(params,'params')
+        this.tableConfig
           .api(params)
           .then(res => {
             console.log(res, '-----------tabe-res')
             console.log(API_CODE_OK,'API_CODE_OKAPI_CODE_OKAPI_CODE_OKAPI_CODE_OKAPI_CODE_OK')
             if(res.code !== API_CODE_OK) {
               console.log(res.message)
-              ElMessage.error(res.message)
+              this.$message.error(res.message)
               return
             }
-            console.log(res.data[props.listKey],"res")
-            state.tableData = res.data
-              ? res.data[props.listKey]
-              : res.result[props.listKey];
-              console.log("thistable",state.tableData)
+            console.log(res.data[this.listKey],"res")
+            this.tableData = res.data
+              ? res.data[this.listKey]
+              : res.result[this.listKey];
+              console.log("thistable",this.tableData)
             if (res.data) {
-              state.tableData = res.data[props.listKey];
-            } else if (res.result[props.listKey]) {
-              state.tableData = res.result[props.listKey];
+              this.tableData = res.data[this.listKey];
+            } else if (res.result[this.listKey]) {
+              this.tableData = res.result[this.listKey];
             } else {
-              state.tableData = res.result.data;
+              this.tableData = res.result.data;
             }
-            state.total = res.data
-              ? res.data[props.totalKey]
-              : res.result[props.totalKey];
-            nextTick(() => {
+            this.total = res.data
+              ? res.data[this.totalKey]
+              : res.result[this.totalKey];
+            this.$nextTick(() => {
               const pageEl = document.querySelector('.el-pagination__total');
-              state.showAllLeft = pageEl.offsetWidth + 20;
-              getTableHeight();
+              this.showAllLeft = pageEl.offsetWidth + 20;
+              this.getTableHeight();
             });
           })
           .finally(() => {
-            state.isLoading = false;
+            this.isLoading = false;
           });
       }
-    }
+    },
+    // 重置表格数据
+    resetTable() {
+      this.pageParams.pageNo = 1;
+      this.getTableData();
+    },
+    onReset() {
+      this.searchParams = {};
+      this.formInlineForm = {};
 
-    function resetTable() {
-      state.pageParams.pageNo = 1;
-      getTableData();
-    }
-
-    function onReset() {
-      state.searchParams = {};
-      state.formInlineForm = {};
-      resetTable();
+      this.resetTable();
       // 触发发法重置
-      emit("reset")
-    }
-
-    function onSubmit() {
-      const submitParams = JSON.parse(JSON.stringify(state.formInlineForm));
-      state.searchParams = { ...submitParams };
-      console.log(JSON.parse(JSON.stringify(state.searchParams)), 'searchParams');
-      state.pageParams.pageNo = 1;
-      getTableData();
-    }
-
-    function submitForm(params) {
-      state.formInlineForm = params;
-      onSubmit();
-    }
-    // -------------函数方法结束--------------- //
-    
-    watch(() => props.queryParams, val => {
-      if (isResetForm) {
-        onReset();
-      } else {
-        resetTable();
-      }
-    }, { deep: true })
-
-    watch(() => state.searchParams, val => {
-      const len = Array.from(Object.keys(val));
-      if (len.length > 0) {
-        state.hasSearch = true;
-      } else {
-        state.hasSearch = false;
-      }
-    }, { deep: true, immediate: true })
-
-    watch(() => state.tableData, val => {
-      layout()
-    })
-
-    // 挂载
-    onMounted(() => {
-      // 计算left
-      const pageEl = document.querySelector('.el-pagination__total');
-      state.showAllLeft = pageEl.offsetWidth + 20;
-      // 将表格实例emit出去，方便在外面直接调用表格的方法
-      emit('get-table-ref', tableRef);
-      // 将表单的ref实例，发送到父组件，用以操作表单组件中的方法和值
-      emit('getCommonFormRef', CommonFormRef);
-    })
-
-    // 初始化调用
-    props.isFastRequest && getTableData();
-
-    return {
-      // 计算属性
-      mustSub,
-      tableAttrs,
-      tableEvents,
-      columns,
-      hasForm,
-      hasFormAndTab,
-      hasTopNav,
-      formConfig,
-      formAttrs,
-      formEvents,
-      schema,
-      hasIndex,
-      hasSelection,
-      startPage,
-      endPage,
-      formConfig,
-      rowKey,
-      // 函数方法
-      formatFilter,
-      getSubRefresh,
-      handleSelectionChange,
-      emitCommmonForm,
-      getTableHeight,
-      doLayout,
-      layout,
-      headerDragend,
-      handleSizeChange,
-      handleCurrentChange,
-      getTableData,
-      resetTable,
-      onReset,
-      onSubmit,
-      submitForm,
-      
-      tableRef, 
-      CommonFormRef,
-      ...toRefs(state)
-    }
-  }
-})
-
-
+      this.$emit("reset")
+    },
+    onSubmit() {
+      const submitParams = JSON.parse(JSON.stringify(this.formInlineForm));
+      this.searchParams = { ...submitParams };
+      console.log(JSON.parse(JSON.stringify(this.searchParams)), 'this.searchParams');
+      this.pageParams.pageNo = 1;
+      this.getTableData();
+    },
+    submitForm(params) {
+      this.formInlineForm = params;
+      this.onSubmit();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
