@@ -161,6 +161,7 @@ export default defineComponent({
     }
     
     function setSpan() {
+      console.log(schemaLength.value, '--------props');
       state.createForm = false
       // 获取当前的form的宽度
       const dom = document.querySelector('.common-form');
@@ -222,7 +223,7 @@ export default defineComponent({
           if (schemaLength === 1) {
             state.currentSpan = 14;
             state.specialSpan = 10
-          } else if (this.schemaLength === 2) {
+          } else if (schemaLength === 2) {
             state.currentSpan = 12;
             state.specialSpan = 24
           }

@@ -1,56 +1,57 @@
 <template>
-  <div class="layout-title" :class="{ 'small-size': smallSize }">
-    <div :id="idAttr" class="title">{{ title }}</div>
+  <div class="layout-title" :class="{ 'small-size': props.smallSize }">
+    <div :id="props.idAttr" class="title">{{ props.title }}</div>
     <div
-      v-if="showRightText"
+      v-if="props.showRightText"
       class="right-text"
-      :class="{ 'right-active': isUp }"
+      :class="{ 'right-active': state.isUp }"
       @click="toggleBox"
-      >{{ rightText }}
+      >{{ state.rightText }}
       <!-- <img :src="require('@/assets/tableicon/down-icon.svg')" alt="" /> -->
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'TableTitle',
-  props: {
-    title: {
-      type: String,
-      default: '数据接入申请',
-    },
-    idAttr: {
-      type: String,
-    },
-    showRightText: {
-      type: Boolean,
-      default: false,
-    },
-    smallSize: {
-      type: Boolean,
-      default: false,
-    },
+<script setup>
+import { toRefs, defineProps, reactive, defineEmits } from 'vue'
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: '数据接入申请',
   },
-  data() {
-    return {
-      rightText: '收起',
-      isUp: false,
-    };
+  idAttr: {
+    type: String,
   },
-  methods: {
-    toggleBox() {
-      this.rightText = this.rightText == '收起' ? '展开' : '收起';
-      this.isUp = !this.isUp;
-      if (this.isUp) {
-        this.$emit('close');
-      } else {
-        this.$emit('open');
-      }
-    },
+  showRightText: {
+    type: Boolean,
+    default: false,
   },
-};
+  smallSize: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const state = reactive({
+  rightText: '收起',
+  isUp: false,
+})
+
+const emit = defineEmits()
+
+function toggleBox() {
+  state.rightText = state.rightText == '收起' ? '展开' : '收起';
+  state.isUp = !state.isUp;
+  if (this.isUp) {
+    emit('close');
+  } else {
+    emit('open');
+  }
+}
+
 </script>
+
 
 <style lang="scss" scoped>
 .layout-title {

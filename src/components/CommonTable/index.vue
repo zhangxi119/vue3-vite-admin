@@ -512,7 +512,6 @@ export default defineComponent({
       hasForm,
       hasFormAndTab,
       hasTopNav,
-      formConfig,
       formAttrs,
       formEvents,
       schema,
