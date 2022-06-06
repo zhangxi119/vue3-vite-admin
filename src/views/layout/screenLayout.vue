@@ -1,6 +1,7 @@
 <template>
   <div class="screen-index">
-    <div :style="state.emStyle">
+    <!-- <div :style="state.emStyle"> -->
+    <div>
       <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" v-if="$route.meta.keepAlive"></component>
@@ -32,12 +33,12 @@ export default defineComponent({
       }
     }
     onMounted(() => {
-      setFontSize()
-      addEventListener('resize', () => {
-        nextTick(() => {
-          setFontSize()
-        })
-      })
+      // setFontSize()
+      // addEventListener('resize', () => {
+      //   nextTick(() => {
+      //     setFontSize()
+      //   })
+      // })
     })
     return {
       fullWidth,

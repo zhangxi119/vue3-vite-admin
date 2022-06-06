@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 // 引入子路由
 import layoutRouter from "./layout.router"
 import fullScreen from "./fullScreen.router"
@@ -124,14 +124,14 @@ export const asyncRoutes = [
 
 // 创建路由实例
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: constantRoutes,
 })
-
+console.log(import.meta.env.MODE, '------------------------env.MODE');
 // 重置路由
 export function resetRouter() {
   const newRouter = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: constantRoutes,
   })
   router.matcher = newRouter.matcher

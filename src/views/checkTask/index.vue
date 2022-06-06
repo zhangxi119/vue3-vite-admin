@@ -1,6 +1,7 @@
 <template>
 <!-- 报表管理 -->
-  <div class="dashboard-main">
+  <div class="dashboard-main" >
+    <!-- <span :class="cssStyle.msg">测试</span> -->
     <CommonTable ref="table" :table-config="tableConfig" :query-params='queryParams' :listKey="'list'">
       <template #header>
         <div class="add-view" style="text-align: right">
@@ -116,7 +117,7 @@ import CommonTable from '@/components/CommonTable/index.vue';
 import TabsForm from '@/components/TabsForm/index.vue';
 import { getTableList, getSelectList } from '@/api/index.js';
 
-import { defineComponent ,reactive, onMounted, ref, computed, watch, nextTick, toRefs  } from 'vue'
+import { defineComponent ,reactive, onMounted, ref, computed, watch, nextTick, toRefs, useCssModule  } from 'vue'
 
 export default defineComponent({
   name: 'Disease',
@@ -425,6 +426,9 @@ export default defineComponent({
     const userInfo = reactive(JSON.parse(sessionStorage.getItem('userInfo')))
     initSelect()
     
+    // const style = useCssModule('cssStyle')
+    // console.log(style, '------------------style');
+
     return {
       dialogForm,
       table,
@@ -445,3 +449,12 @@ export default defineComponent({
 
 
 </script>
+
+<style module="cssStyle">
+.dashboard-main :deep(.el-button) {
+  /* color: red; */
+}
+.msg {
+  color: red;
+}
+</style>

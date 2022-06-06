@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
       }
     }
     .header-time {
-      width: 342px;
+      width: 392px;
       height: 100%;
       padding-right: 20px;
       box-sizing: border-box;
