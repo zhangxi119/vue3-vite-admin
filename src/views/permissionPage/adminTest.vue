@@ -32,6 +32,7 @@ onMounted(() => {
   justify-content: center;
   .text {
     width: 300px;
+    height: 40px;
   }
 }
 </style>
