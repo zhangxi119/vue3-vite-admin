@@ -34,6 +34,7 @@
               <component
                 :is="formItem.component"
                 v-else
+                v-model = "formInline[formItem.field]"
                 v-model:selectValue="formInline[formItem.field]"
                 v-bind="formItem.componentProps"
               ></component>

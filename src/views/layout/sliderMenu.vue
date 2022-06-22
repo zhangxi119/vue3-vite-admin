@@ -2,10 +2,10 @@
   <div>
     <div v-for="(item, index) in tree" :key="index">
       <!-- hidden=true且该路由又有子路由时 直接递归进入子路由 -->
-      <div v-if="item.hidden && item.children">
+      <div v-if="item.meta && item.meta.hidden && item.children">
         <sliderMenu :tree="item.children"></sliderMenu>
       </div>
-      <div v-if="!item.hidden">
+      <div v-if="!(item.meta && item.meta.hidden)">
         <el-sub-menu :index="item.path" v-if="item.children">
           <template #title>
             <i :class="item?.meta?.icon || ''"></i>

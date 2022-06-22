@@ -114,7 +114,7 @@
 <script>
 import CommonTable from '@/components/CommonTable/index2.vue';
 import TabsForm from '@/components/TabsForm/index.vue';
-import { getTableList, getSelectList } from '@/api/index.js';
+import { getTableList, getSelectList } from '@/api/index.ts';
 export default {
   name: 'Disease',
   components: {

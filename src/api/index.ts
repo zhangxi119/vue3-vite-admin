@@ -3,7 +3,7 @@ const baseUrl = '/audit'
 
 
 // 获取table表数据\新增\删除
-export const getTableList = params => {
+export const getTableList = (params: string) => {
   return request.post(`/mock/table/list`, params);
 };
 // 获取筛选条件下拉数据

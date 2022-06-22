@@ -7,7 +7,7 @@
 <script setup>
   import Driver from 'driver.js' // import driver.js
   import 'driver.js/dist/driver.min.css' // import driver.js css
-  import steps from './step.js'
+  import steps from './step'
 
   const driver = new Driver({
       allowClose: false, //禁止点击外部关闭

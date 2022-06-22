@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import type { RouteRecordRaw, Router } from "vue-router"
 // 引入子路由
 import layoutRouter from "./layout.router"
 import fullScreen from "./fullScreen.router"
@@ -7,7 +8,7 @@ import Layout from '@/views/layout/index.vue'
 import ScreenLayout from '@/views/layout/screenLayout.vue'
 
 // 固定路由
-export const constantRoutes = [
+export const constantRoutes: RouteRecordRaw[] = [
   // {
   //   path: '/',
   //   redirect: '/index',
@@ -18,14 +19,16 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    hidden: true,
+    meta: {
+      hidden: true,
+    },
     children: [
       {
         path: '/dashboard',
         name: 'dashboard',
         meta: {
           title: 'dashboard',
-          affix: true
+          affix: true,
         },
         component: () => import('@/views/dashboard/index.vue')
       }
@@ -35,9 +38,9 @@ export const constantRoutes = [
     path: '/login',
     name: 'login',
     meta: {
-      title: 'login'
+      title: 'login',
+      hidden: true,
     },
-    hidden: true,
     component: () => import('@/views/login/login.vue'),
   },
   {
@@ -63,7 +66,9 @@ export const constantRoutes = [
     path: '/guide',
     // redirect: '/guide/index',
     component: Layout,
-    hidden: true,
+    meta: {
+      hidden: true,
+    },
     children: [
       {
         path: '/guide/index',
@@ -77,7 +82,7 @@ export const constantRoutes = [
   },
 ]
 // 异步动态路由
-export const asyncRoutes = [
+export const asyncRoutes: RouteRecordRaw[] = [
   {
     path: '/permission',
     name: 'Permission',
@@ -123,18 +128,36 @@ export const asyncRoutes = [
 ]
 
 // 创建路由实例
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(),
   routes: constantRoutes,
 })
-console.log(import.meta.env.MODE, '------------------------env.MODE');
+
+// 递归汇总白名单路由的名称
+const WHITE_NAME_LIST: string[] = [];
+const getRouteName = (array: any[]) => {
+  array.forEach(item => {
+    WHITE_NAME_LIST.push(item.name)
+    getRouteName(item.children || [])
+  })
+}
+getRouteName(constantRoutes)
+
 // 重置路由
 export function resetRouter() {
-  const newRouter = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: constantRoutes,
-  })
-  router.matcher = newRouter.matcher
+  // const newRouter = createRouter({
+  //   history: createWebHistory(import.meta.env.BASE_URL),
+  //   routes: constantRoutes,
+  // })
+  // router.matcher = newRouter.matcher
+
+  // vue-router4X 版本添加了removeRoute方法
+  router.getRoutes().forEach((route) => {
+    const { name } = route;
+    if (name && !WHITE_NAME_LIST.includes(name as string)) {
+      router.hasRoute(name) && router.removeRoute(name);
+    }
+  });
 }
 
 export default router

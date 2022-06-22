@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import path from 'path'
 import vue from '@vitejs/plugin-vue'
 
 import AutoImport from 'unplugin-auto-import/vite'
@@ -9,8 +10,8 @@ import legacy from '@vitejs/plugin-legacy'
 import postcsspxtoviewport from 'postcss-px-to-viewport-8-plugin'
 // // https://vitejs.dev/config/
 // import path from 'path'
-import { resolve } from 'path'
-console.log(import.meta, '---------import.meta.env');
+const resolve = (dir: string): string => path.resolve(__dirname, dir)
+// console.log(import.meta, '---------import.meta.env');
 // const IS_DEV = import.meta.env.MODE === 'development' ? true : false
 
 export default defineConfig({
@@ -40,7 +41,30 @@ export default defineConfig({
   * 与“根”相关的目录，构建输出将放在其中。如果目录存在，它将在构建之前被删除。
   * @default 'dist'
   */
-  outDir: 'dist',
+  // outDir: 'dist',
+  build: {
+    target: 'modules',
+    outDir: 'dist', // 指定输出路径
+    assetsDir: 'static', // 指定生成静态资源的存放路径
+    minify: 'terser', // 混淆器,terser构建后文件体积更小
+    sourcemap: false,
+    terserOptions: {
+      compress: {
+        drop_console: true, // 生产环境移除console
+        drop_debugger: true // 生产环境移除debugger
+      }
+    },
+    rollupOptions: {
+      treeshake: false,
+      output: {
+        manualChunks (id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        }
+      }
+    }
+  },
   server: {
     // hostname: '0.0.0.0',
     host: "localhost",
@@ -63,25 +87,20 @@ export default defineConfig({
   resolve: {
     // 导入文件夹别名
     alias: {
-      '@': resolve(__dirname, 'src'),
-      // views: path.resolve(__dirname, './src/views'),
-      // components: path.resolve(__dirname, './src/components'),
-      // utils: path.resolve(__dirname, './src/utils'),
-      // less: path.resolve(__dirname, "./src/less"),
-      // assets: path.resolve(__dirname, "./src/assets"),
-      // com: path.resolve(__dirname, "./src/components"),
-      // store: path.resolve(__dirname, "./src/store"),
-      // mixins: path.resolve(__dirname, "./src/mixins"),
-      // alias: [{
-      //   find: "@",
-      //   replacement: path.resolve(__dirname, 'src')
-      // }, {
-      //   find: "components",
-      //   replacement: path.resolve(__dirname, 'src/components')
-      // }, {
-      //   find: "vites",
-      //   replacement: path.resolve(__dirname, 'src/view')
-      // }]
+      // 兼容webpack的习惯
+      '@': resolve('src'),
+      '@img': resolve('src/assets/img'),
+      '@less': resolve('src/assets/less'),
+      '@libs': resolve('src/libs'),
+      '@cp': resolve('src/components'),
+      '@views': resolve('src/views'),
+      // 兼容webpack的静态资源
+      '~@': resolve('src'),
+      '~@img': resolve('src/assets/img'),
+      '~@less': resolve('src/assets/less'),
+      '~@libs': resolve('src/libs'),
+      '~@cp': resolve('src/components'),
+      '~@views': resolve('src/views'),
     },
   },
   css: {

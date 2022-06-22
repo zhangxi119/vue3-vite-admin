@@ -15,22 +15,23 @@
         <el-input type="password" v-model="form.password" placeholder="请输入密码" />
       </el-form-item>
       <el-form-item>
-        <el-button v-loading="loading" type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+        <el-button :loading="loading" type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
-import { login } from '@/api/index.js'
+import { login } from '@/api'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex';
-const router = useRouter()
-const store = useStore()
-const ruleFormRef = ref()
-let loading = ref(false)
+import type { FormRules } from 'element-plus'
+const { push, currentRoute } = useRouter()
+const { dispatch } = useStore()
+const ruleFormRef = ref<HTMLElement | null>(null)
+const loading = ref<boolean>(false)
 // 重定向地址
 let redirect = ref(undefined)
 // 重定向参数
@@ -39,7 +40,7 @@ const form = reactive({
   user: 'admin',
   password: '123',
 })
-const rules = reactive({
+const rules = reactive<FormRules>({
   user: [
     {
       required: true,
@@ -61,42 +62,22 @@ const submitForm = async (formEl) => {
   if (!formEl) return
   await formEl.validate(async (valid) => {
     if (valid) {
-      loading = true
+      loading.value = true
       const params = {
         userName: form.user,
         password: form.password
       }
-      store.dispatch('user/login', params).then(res => {
-        router.push({path: redirect || '/', query: otherQuery})
-        loading = false
+      dispatch('user/login', params).then(res => {
+        push({path: redirect || '/', query: otherQuery})
+        loading.value = false
       }).catch((err) => {
         ElMessage({
           showClose: true,
           message: err,
           type: 'warning',
         })
-        loading = false
+        loading.value = false
       })
-      // const { data, code } = await login(params)
-      // if (code === 0 && data.token) {
-      //   loading = false
-      //   ElMessage({
-      //     showClose: true,
-      //     message: '登录成功',
-      //     type: 'success',
-      //   })
-      //   store.commit('SET_USER_INFO', {userName: form.user, token: data.token})
-      //   sessionStorage.setItem('token', data.token)
-      //   router.push({name: 'index'})
-      // } else {
-      //   loading = false
-      //   ElMessage({
-      //     showClose: true,
-      //     message: '登录失败',
-      //     type: 'warning',
-      //   })
-      //   sessionStorage.removeItem('token')
-      // }
     } else {
       console.log('error submit!!')
       return false
@@ -118,7 +99,7 @@ const getOtherQuery = (query) => {
   }, {})
 }
 // 监听路由，获取重定向地址
-watch(() => router.currentRoute.value, (toPath) => {
+watch(() => currentRoute.value, (toPath) => {
   if (toPath.query) {
     redirect = toPath.query.redirect
     otherQuery = getOtherQuery(toPath.query)

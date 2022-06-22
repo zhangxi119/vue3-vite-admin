@@ -1,4 +1,4 @@
-import { login, getInfo, logout } from '@/api/index.js'
+import { login, getInfo, logout } from '@/api/index.ts'
 import { getToken, setToken, removeToken } from '@/utils/auth.js'
 import { resetRouter } from '@/router'
 const state = {
@@ -43,7 +43,9 @@ const actions = {
         const { data } = res
         commit('SET_TOKEN', data.token)
         setToken(data.token)
-        resolve()
+        setTimeout(() => {
+          resolve()
+        }, 3000);
       }).catch(err => {
         reject(err)
       })

@@ -16,7 +16,8 @@ export function getLanguage() {
   if (chooseLanguage) return chooseLanguage
 
   // if has not choose language
-  const language = (navigator.language || navigator.browserLanguage).toLowerCase()
+  // const language = (navigator.language || navigator.browserLanguage).toLowerCase()
+  const language = (navigator.language).toLowerCase()
   const locales = Object.keys(messages)
   for (const locale of locales) {
     if (language.indexOf(locale) > -1) {
@@ -34,11 +35,11 @@ const i18n = createI18n({
   messages
 })
 
-export function generateTitle(title) {
-  const { ctx } = getCurrentInstance()
+export function generateTitle(title: string) {
+  const { ctx } = getCurrentInstance() as any
   const hasKey = ctx.$te('route.' + title)
   if (hasKey) {
-    // $t :this method from vue-i18n, inject in @/lang/index.js
+    // $t :this method from vue-i18n, inject in @/lang/index.ts
     const translatedTitle = ctx.$t('route.' + title)
 
     return translatedTitle

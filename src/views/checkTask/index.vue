@@ -115,7 +115,7 @@
 <script>
 import CommonTable from '@/components/CommonTable/index.vue';
 import TabsForm from '@/components/TabsForm/index.vue';
-import { getTableList, getSelectList } from '@/api/index.js';
+import { getTableList, getSelectList } from '@/api/index.ts';
 
 import { defineComponent ,reactive, onMounted, ref, computed, watch, nextTick, toRefs, useCssModule  } from 'vue'
 
@@ -259,11 +259,13 @@ export default defineComponent({
             },
             {
               field: 'param_10',
-              component: 'DatePicker',
+              component: 'ElDatePicker',
               label: '启动日期',
               componentProps: {
                 clearable: true,
                 placeholder: '请选择启动日期',
+                // format: "YYYY/MM/DD",
+                "value-format": "YYYY-MM-DD"
               },
             },
           ],
