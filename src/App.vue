@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="main-app">
     <router-view v-slot="{ Component }">
@@ -11,10 +9,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, onMounted  } from 'vue'
+import { defineComponent, onMounted, ref, nextTick  } from 'vue'
 export default defineComponent({
   name: 'app',
   setup() {
+    onMounted(() => {
+    })
     return {
     }
   }

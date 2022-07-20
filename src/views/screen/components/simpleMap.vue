@@ -6,19 +6,21 @@
         :autoresize="true"
         style="width: 100%;height: 100%;"
         :option="chartOption"
+        @click= "handeClick"
       />
     </div>
   </div>
 </template>
 <script setup>
-import {onMounted, ref} from 'vue'
-import mapJson from './510000.json'
+import {onMounted, ref, reactive} from 'vue'
+// import mapJson from './510000.json'
 // 若使用其它类型echarts组件提示报错时，需要到main.js查看是否引入该类型组件
 import Chart from 'vue-echarts'
 // 此处需要单独引用Echarts的api方法，新版的vue-echarts示例上好像是没有挂在
 import { registerMap } from "echarts/core";
 const chartOption = ref({})
 const regionCode = '510000'
+let mapJson = reactive({})
 // 初始化Echarts并渲染
 const initChartOption = (regionCode) => {
   chartOption.value = {
@@ -60,12 +62,23 @@ const initChartOption = (regionCode) => {
                 areaColor: '#00B0FF'
             }
         },
+        select: {
+          itemStyle: {
+            areaColor: '#00B0FF'
+
+          }
+        },
         zoom: 1.2
     }]
   }
 }
 // 获取地图json并注册地图
-const registerMapFn = (regionCode) => {
+const registerMapFn = async (regionCode) => {
+  mapJson = await import(`./${regionCode}.json`)
+  // import(`./${regionCode}.json`).then( mapJson => {
+  //   console.log(mapJson, '-------------mapJson');
+  // })
+  console.log(mapJson, '-------------mapJson');
   return new Promise((resolve, reject) => {
     try {
       registerMap(regionCode, mapJson)
@@ -75,6 +88,11 @@ const registerMapFn = (regionCode) => {
     }
   })
 }
+
+function handeClick(params) {
+  console.log(params, '-------params');
+}
+
 onMounted(() => {
   registerMapFn(regionCode).then(res => {
     if (res) {

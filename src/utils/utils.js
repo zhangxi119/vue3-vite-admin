@@ -380,7 +380,7 @@ export const  downloadFile = (blobData, fileName) => {
 }
 
 // 防抖
-const debounce = (fn, delay) => {
+export const debounce = (fn, delay) => {
   let timer
   return function(...args) {
     if (timer) {
@@ -392,7 +392,7 @@ const debounce = (fn, delay) => {
   }
 }
 // 节流
-const throttle = (fn, delay) => {
+export const throttle = (fn, delay) => {
   let last = 0
   return function(...args) {
     const now = Date.now()
@@ -419,4 +419,47 @@ export const deepClone = (obj, cache = new WeakMap()) => {
     }
   }
   return cloneObj
+}
+
+// 通过名称获取cookie值
+export const getCookie = name => `;${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+
+/**
+ * js数值计算 示例：funCalc([1.02,3,4]),处理js计算精度问题
+ * @param {*} arrList 参数数组
+ * @param {*} operator 操作符：1加法 2乘法
+ * @param {*} precision 精度 默认2位
+ */
+ export const funCalc = (arrList, operator = 1, precision = 2) => {
+  if (arrList.length === 0) return 0;
+  // 计算最大数度值,避免精度丢失，先扩大位数，再缩小
+  let mPow = Math.pow(10, precision); // 默认2位小数
+  let total = 0;
+  if (operator == 2) {
+    total = 1;
+    mPow = 1;
+  }
+  for (const item of arrList) {
+    let tem = 0;
+    if (item) {
+      tem = parseFloat(item) ?? 0; // parseFloat处理，转化失败时给0
+      tem = !isNaN(tem) ? tem : 0; // 处理 NaN 情况
+    }
+    switch (operator) {
+      case 1:
+        total += tem * mPow;
+        break;
+      case 2:
+        total *= tem * mPow;
+        break;
+      default:
+        total += tem * mPow;
+    }
+  }
+  // toFixed部分浏览器会用问题，toFixed它是一个四舍六入五成双的诡异的方法(也叫银行家算法)，"四舍六入五成双"含义：对于位数很多的近似数，当有效位数确定后，其后面多余的数字应该舍去，只保留有效数字最末一位，这种修约（舍入）规则是“四舍六入五成双”，也即“4舍6入5凑偶”这里“四”是指≤4 时舍去，"六"是指≥6时进上，"五"指的是根据5后面的数字来定，当5后有数时，舍5入1；当5后无有效数字时，需要分两种情况来讲：①5前为奇数，舍5入1；②5前为偶数，舍5不进。（0是偶数）
+  const res = (total / mPow).toFixed(precision);
+  // // 修复toFixed
+  // const res = parseInt(total + 0.5, 10) / times;
+ 
+  return res;
 }
