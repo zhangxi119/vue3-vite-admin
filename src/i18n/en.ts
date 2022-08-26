@@ -1,6 +1,7 @@
 export default {
   route: {
     screen: 'screen',
+    bigScreen: 'bigScreen',
     login: 'login',
     component: 'component',
     sportAuthRouter: 'sportAuthRouter',
@@ -8,6 +9,7 @@ export default {
     adminTest: 'adminTest',
     guide: 'guide',
     dashboard: 'dashboard',
+    treeEditor: 'treeEditor',
   },
   navbar: {
     dashboard: 'Dashboard',

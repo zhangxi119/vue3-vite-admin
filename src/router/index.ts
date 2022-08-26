@@ -80,6 +80,23 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/treeEditor',
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/treeEditor',
+        name: 'treeEditor',
+        meta: {
+          title: 'treeEditor'
+        },
+        component: () => import('@/views/treeEditor/index.vue')
+      }
+    ]
+  },
 ]
 // 异步动态路由
 export const asyncRoutes: RouteRecordRaw[] = [

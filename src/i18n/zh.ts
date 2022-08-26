@@ -8,6 +8,8 @@ export default {
     adminTest: '管理页权限测试页',
     guide: '引导页',
     dashboard: '首页',
+    treeEditor: '树形编辑器',
+    bigScreen: '大屏示例',
   },
   navbar: {
     dashboard: '首页',
