@@ -43,6 +43,7 @@ declare module 'vue' {
     HelloWorld: typeof import('./src/components/jsDemo/HelloWorld.vue')['default']
     Index_old: typeof import('./src/components/CommonForm/index_old.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
+    MarqueeX: typeof import('./src/components/marquee/marqueeX.vue')['default']
     TableTitle: typeof import('./src/components/CommonTable/TableTitle.vue')['default']
     TabsForm: typeof import('./src/components/TabsForm/index.vue')['default']
     ThrottleTest: typeof import('./src/components/jsDemo/throttleTest.vue')['default']

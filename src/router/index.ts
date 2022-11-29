@@ -97,6 +97,23 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/neo4jd3Page',
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/neo4jd3Page',
+        name: 'neo4jd3Page',
+        meta: {
+          title: 'neo4jd3Page'
+        },
+        component: () => import('@/views/neo4jd3Page/index.vue')
+      }
+    ]
+  },
 ]
 // 异步动态路由
 export const asyncRoutes: RouteRecordRaw[] = [

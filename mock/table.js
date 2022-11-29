@@ -1,3 +1,11 @@
+/*
+ * @Author: zhangxi 380313641@qq.com
+ * @Date: 2022-04-27 10:03:14
+ * @LastEditors: zhangxi
+ * @LastEditTime: 2022-10-18 15:26:59
+ * @FilePath: \vue3-vite-admin\mock\table.js
+ * @Description: 
+ */
 import Mock from 'mockjs'
 import { deepClone } from '../src/utils/utils'
 import responseData from './responseData'
@@ -9,7 +17,7 @@ let tabelList = Mock.mock(
     'list|10': [
       {
         'param_01': '@id()', 
-        'param_02': 'MOCK随机数据', 
+        'param_02': 'MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据MOCKK随机数据', 
         'param_03': '@date(yyyy-mm-dd)', 
         'param_04': '@city(true)',
         'param_05': /^1[0-9]{10}$/,

@@ -165,4 +165,9 @@ $elTableHeaderTextWeight: 700; // table表格表头的文字粗细
   padding-bottom: 5px;
 }
 
-
+.tl-tooltip__popper {
+  max-width: 50%;
+}
+.el-popper {
+  max-width: 50%;
+}
